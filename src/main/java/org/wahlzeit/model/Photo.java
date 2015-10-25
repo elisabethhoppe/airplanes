@@ -123,6 +123,11 @@ public class Photo extends DataObject {
 	protected String ending = "jpg";
 	
 	/**
+	 *	The location of this photo
+	 */
+	public Coordinate location;
+	
+	/**
 	 *
 	 */
 	//TODO: change it to a single long
@@ -418,4 +423,27 @@ public class Photo extends DataObject {
 		noVotesAtLastNotification = noVotes;
 		incWriteCount();
 	}
+	
+	/**
+	 * Sets the location of this image
+	 * 
+	 * @methodtype set
+	 * 
+	 * @param coordinate The coordinate object that represents the location
+	 */
+	 public void setLocation(Coordinate coordinate){
+		 this.location = coordinate;
+	 }
+	 
+	 /**
+	 * Gets the location of this image
+	 * 
+	 * @methodtype get
+	 * 
+	 * @return The location as a coordinate object
+	 */
+	 public Coordinate getLocation(){
+		 return this.location;
+	 }
+	 
 }
