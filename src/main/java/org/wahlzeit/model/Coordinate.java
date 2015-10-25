@@ -88,7 +88,7 @@ public class Coordinate extends DataObject{
 	 */
 	public Coordinate getDistance(Coordinate coordinate){
 		if(coordinate == null){
-			throw new IllegalArgumentException("Argument coordinate object is null");
+			throw new NullPointerException("Argument coordinate object is null");
 		}
 		Coordinate result = new Coordinate(getLatitudeDistance(coordinate), getLongitudeDistance(coordinate));
 		return result;
@@ -103,7 +103,7 @@ public class Coordinate extends DataObject{
 	 * @return	The distance of latitudes
 	 */
 	private double getLatitudeDistance(Coordinate coordinate){
-		return this.getLatitude() - coordinate.getLatitude();
+		return Math.abs(this.getLatitude() - coordinate.getLatitude());
 	}
 	
 	/**
@@ -115,6 +115,6 @@ public class Coordinate extends DataObject{
 	 * @return	The distance of lontitudes
 	 */
 	private double getLongitudeDistance(Coordinate coordinate){
-		return this.getLongitude() - coordinate.getLongitude();
+		return Math.abs(this.getLongitude() - coordinate.getLongitude());
 	}
 }
