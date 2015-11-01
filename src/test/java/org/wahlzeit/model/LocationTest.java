@@ -21,5 +21,6 @@ public class LocationTest {
 		l2 = new Location("meineLocation", c1);
 	}
 	
+	
 
 }
