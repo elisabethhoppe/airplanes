@@ -8,13 +8,13 @@ import org.junit.Test;
 /**
  * Coordinate test class 
  * 
- * @version 1.0
+ * @version 2.0
  * 
- * @date 25.10.2015
+ * @date 01.11.2015
  */
 public class CoordinateTest {
 	
-	private Coordinate co1, co2, co3, co4, co5, co6, co7, co8, co9, co10;
+	private Coordinate co1, co2, co3, co4, co5, co6, co7, co8, co9, co10, co11, co12;
 	private double delta = 0.00001;
 	
 	@Before
@@ -57,7 +57,7 @@ public class CoordinateTest {
 	}
 	
 	// test the default constructor
-	@SuppressWarnings("deprecation")
+	
 	@Test
 	public void testDefaultConstructor(){
 		assertEquals(0.0, co1.getLatitude(), delta);
@@ -65,23 +65,31 @@ public class CoordinateTest {
 	}
 	
 	// test the distance computing
-	@SuppressWarnings("deprecation")
+
 	@Test
 	public void testDistances(){
-		assertEquals(90.0, co2.getDistance(co3).getLatitude(), delta);
-		assertEquals(60.0, co2.getDistance(co3).getLongitude(), delta);
+		assertEquals(90.0, co2.getLatitudeDistance(co3), delta);
+		assertEquals(60.0, co2.getLongitudeDistance(co3), delta);
 	}
 	
-	@SuppressWarnings("deprecation")
+	
 	@Test
 	public void testDistanceWithOneObject(){
-		assertEquals(0.0, co3.getDistance(co3).getLatitude(), delta);
-		assertEquals(0.0, co3.getDistance(co3).getLongitude(), delta);
+		assertEquals(0.0, co3.getLatitudeDistance(co3), delta);
+		assertEquals(0.0, co3.getLongitudeDistance(co3), delta);
 	}
 	
-	@SuppressWarnings("deprecation")
-	@Test(expected = NullPointerException.class)
+	
+	@Test(expected = IllegalArgumentException.class)
 	public void testDistanceWithNullObject(){
-		assertEquals(0.0, co2.getDistance(co10).getLatitude());
+		assertEquals(0.0, co2.getLatitudeDistance(co10), delta);
+	}
+	
+	@Test
+	public void testDistanceInKM(){
+		co11 = new Coordinate(52.517, 13.40);
+		co12 = new Coordinate(35.70, 139.767);
+		assertEquals(233.68156306515726, co11.getDistance(co12), delta);
+		
 	}
 }
