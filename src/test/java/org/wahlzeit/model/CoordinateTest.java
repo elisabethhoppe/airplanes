@@ -1,6 +1,6 @@
 package org.wahlzeit.model;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +14,7 @@ import org.junit.Test;
  */
 public class CoordinateTest {
 	
-	private Coordinate co1, co2, co3, co4, co5, co6, co7, co8, co9, co10, co11, co12;
+	private Coordinate co1, co2, co3, co4, co5, co6, co7, co8, co9, co10, co11, co12, co13, co14;
 	private double delta = 0.00001;
 	
 	@Before
@@ -22,6 +22,8 @@ public class CoordinateTest {
 		co1 = new Coordinate();
 		co2 = new Coordinate(10.0, -10.0);
 		co3 = new Coordinate(-80.0, -70.0);
+		co13 = new Coordinate(90,90);
+		co14 = new Coordinate(90,90);
 	}
 	
 	// boundary testing
@@ -91,5 +93,11 @@ public class CoordinateTest {
 		co12 = new Coordinate(35.70, 139.767);
 		assertEquals(233.68156306515726, co11.getDistance(co12), delta);
 		
+	}
+	
+	// test equality
+	@Test
+	public void testEquality(){
+		assertTrue(co13.equals(co14));
 	}
 }

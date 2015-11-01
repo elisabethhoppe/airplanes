@@ -140,6 +140,29 @@ public class Coordinate extends DataObject{
 	}
 	
 	/**
+	 * Checks whether this coordinate object is equal to another object.
+	 * 
+	 * @methodtype  
+	 * 
+	 * @param coordinate The another coordinate object
+	 * @return	true if equal, false if not
+	 */
+	@Override
+	public boolean equals(Object other){
+		if(other == null){
+			return false;
+		}
+		if(other instanceof Coordinate){
+			Coordinate helper = (Coordinate) other;
+			if(this.getLatitude() == helper.getLatitude()
+					&& this.getLongitude() == helper.getLongitude()){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
 	 * Checks whether a coordinate object is valid (not equal null)
 	 * 
 	 * @methodtype helper 
