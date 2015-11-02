@@ -1,5 +1,7 @@
 package org.wahlzeit.model;
 
+import org.wahlzeit.services.DataObject;
+
 /**
  * Location basic class 
  * 
@@ -9,8 +11,12 @@ package org.wahlzeit.model;
  * 
  * @date 1.11.2015
  */
-public class Location {
+public class Location extends DataObject{
 	
+	/**
+	 * for persistence
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * members
 	 */

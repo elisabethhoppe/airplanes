@@ -27,13 +27,21 @@ public class AirplanePhoto extends Photo{
 	 * 
 	 */
 	public AirplanePhoto(){
-		// just call the super constructor
+		// call the super constructor
 		super();
 		// set all values of this class to default
 		this.setType(null);
 		this.setFlightAltitude(0.0);
 		this.setLandType(null);
 	}
+	/**
+	 * @methodtype constructor
+	 * 
+	 */
+	public AirplanePhoto(PhotoId id){
+		super(id);
+	}
+	
 	
 	/**
 	 * @methodtype constructor

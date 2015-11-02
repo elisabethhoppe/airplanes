@@ -9,5 +9,12 @@ package org.wahlzeit.model;
  *
  */
 public class AirplanePhotoManager extends PhotoManager {
-
+	
+	/**
+	 * @methodtype default constructor
+	 */
+	public AirplanePhotoManager() {
+		super();
+	}
+	
 }
