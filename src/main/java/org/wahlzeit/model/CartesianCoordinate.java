@@ -79,6 +79,7 @@ public class CartesianCoordinate extends DataObject implements Coordinate {
 		}
 		
 		CartesianCoordinate sCoordinate = (CartesianCoordinate) coordinate;
+		
 		if(sCoordinate.getCoordinateX() == this.getCoordinateX()
 				&& sCoordinate.getCoordinateY() == this.getCoordinateY()
 				&& sCoordinate.getCoordinateZ() == this.getCoordinateZ()) {			

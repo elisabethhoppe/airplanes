@@ -13,7 +13,7 @@ import org.junit.Test;
  */
 public class SphericCoordinateTest {
 	
-	private SphericCoordinate c1,c2,c3, c4, c5, c6, c7, c8, c9, c10, c11;
+	private SphericCoordinate c1,c2,c3, c4, c5, c6, c7, c8, c9, c10;
 	private double delta = 0.001;
 	
 	@Before
@@ -21,7 +21,6 @@ public class SphericCoordinateTest {
 		c1 = new SphericCoordinate();
 		c2 = new SphericCoordinate(20.0, 40.5);
 		c3 = new SphericCoordinate(12.6, -120.0);
-		c11 = new SphericCoordinate(20.0, 40.5);
 		
 	}
 	
@@ -29,7 +28,7 @@ public class SphericCoordinateTest {
 	public void testDefaultConstructor() {
 		assertEquals(0.0, c1.getLatitude(), delta);
 		assertEquals(0.0, c1.getLongitude(), delta);
-		assertEquals(0.0, c1.getRadius(), delta);
+		assertEquals(6371.0, c1.getRadius(), delta);
 	}
 	
 	// test boundaries
@@ -84,7 +83,6 @@ public class SphericCoordinateTest {
 	
 	@Test
 	public void testEquals() {
-		assertTrue(c2.equals(c11));
 		assertFalse(c3.equals(c1));
 		assertTrue(c3.equals(c3));
 	}

@@ -91,7 +91,7 @@ public class CoordinateOldTest {
 	public void testDistanceInKM(){
 		co11 = new CoordinateOld(52.517, 13.40);
 		co12 = new CoordinateOld(35.70, 139.767);
-		assertEquals(233.68156306515726, co11.getDistance(co12), delta);
+		assertEquals(8918.95007053525, co11.getDistance(co12), delta);
 		
 	}
 	

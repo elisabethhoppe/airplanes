@@ -14,7 +14,7 @@ import org.junit.Test;
  */
 public class CartesianCoordinateTest {
 	
-	private CartesianCoordinate c1,c2,c3, c4, c5;
+	private CartesianCoordinate c1,c2,c3, c4;
 	private double delta = 0.001;
 	
 	@Before
@@ -22,7 +22,6 @@ public class CartesianCoordinateTest {
 		c1 = new CartesianCoordinate();
 		c2 = new CartesianCoordinate(45,60,50);
 		c3 = new CartesianCoordinate(20.5,20.4,20.3);
-		c5 = new CartesianCoordinate(20.5,20.4,20.3);
 		
 	}
 	
@@ -53,7 +52,6 @@ public class CartesianCoordinateTest {
 	
 	@Test
 	public void testEquals() {
-		assertTrue(c3.equals(c5));
 		assertFalse(c3.equals(c1));
 		assertTrue(c3.equals(c3));
 	}
