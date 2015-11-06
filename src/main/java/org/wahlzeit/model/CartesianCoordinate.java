@@ -14,6 +14,11 @@ import org.wahlzeit.services.DataObject;
 public class CartesianCoordinate extends DataObject implements Coordinate {
 	
 	/**
+	 * for persistence issues
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	/**
 	 * members
 	 * */
 	private double coordinateX;
