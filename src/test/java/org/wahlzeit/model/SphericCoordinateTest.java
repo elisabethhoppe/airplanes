@@ -24,6 +24,8 @@ public class SphericCoordinateTest {
 		
 	}
 	
+	// default constructor
+	
 	@Test
 	public void testDefaultConstructor() {
 		assertEquals(0.0, c1.getLatitude(), delta);
@@ -32,6 +34,7 @@ public class SphericCoordinateTest {
 	}
 	
 	// test boundaries
+	
 	@Test(expected = IllegalArgumentException.class)
 	public void testLowLatitudeBoundaryShouldThrowException(){
 		c5 = new SphericCoordinate(-91,0);
@@ -80,6 +83,8 @@ public class SphericCoordinateTest {
 	public void testDistanceWithNullObjectShouldThrowException(){
 		assertEquals(0.0, c2.getDistance(c4), delta);
 	}
+	
+	// equality 
 	
 	@Test
 	public void testEquals() {

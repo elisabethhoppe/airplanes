@@ -25,6 +25,10 @@ public class SphericCoordinate extends DataObject implements Coordinate  {
 	private double longitude;
 	private double radius;
 	
+	/**
+	 * @methodtype  default constructor
+	 * 
+	 */
 	public SphericCoordinate(){
 		this.setLatitude(0.0);
 		this.setLongitude(0.0);
@@ -32,6 +36,12 @@ public class SphericCoordinate extends DataObject implements Coordinate  {
 		this.setRadius(6371);
 	}
 	
+	/**
+	 * @methodtype   constructor
+	 * 
+	 * @param latitude The latitude value
+	 * @param longitude The longitude value
+	 */
 	public SphericCoordinate(double latitude, double longitude) {
 		this.setLatitude(latitude);
 		this.setLongitude(longitude);
@@ -39,45 +49,109 @@ public class SphericCoordinate extends DataObject implements Coordinate  {
 		this.setRadius(6371);
 	}
 	
+	/**
+	 * @methodtype   constructor
+	 * 
+	 * @param latitude The latitude value
+	 * @param longitude The longitude value
+	 * @param radius The radius value
+	 */
 	public SphericCoordinate(double latitude, double longitude, double radius){
 		this.setLatitude(latitude);
 		this.setLongitude(longitude);
 		this.setRadius(radius);
 	}
 	
+	/**
+	 * Gets the latitude value
+	 * 
+	 * @methodtype  get
+	 * @methodproperties primitive  
+	 *
+	 * @return The latitude value
+	 */
 	public double getLatitude() {
 		return latitude;
 	}
-
+	
+	/**
+	 * Sets the latitude value
+	 * 
+	 * @methodtype  set
+	 * @methodproperties composed
+	 * 
+	 * @param latitude The latitude value
+	 */
 	public void setLatitude(double latitude) {
 		if(!checkLatitudeValidity(latitude)) {
 			throw new IllegalArgumentException("Latitude value must be between -90 and 90.");
 		}
 		this.latitude = latitude;
 	}
-
+	
+	/**
+	 * Gets the longitude value
+	 * 
+	 * @methodtype  get
+	 * @methodproperties primitive  
+	 *
+	 * @return The longitude value
+	 */
 	public double getLongitude() {
 		return longitude;
 	}
-
+	
+	/**
+	 * Sets the longitude value
+	 * 
+	 * @methodtype  set
+	 * @methodproperties composed
+	 * 
+	 * @param longitude The longitude value
+	 */
 	public void setLongitude(double longitude) {
 		if(!checkLongitudeValidity(longitude)) {
 			throw new IllegalArgumentException("Longitude value must be between -180 and 180.");
 		}
 		this.longitude = longitude;
 	}
-
+	
+	/**
+	 * Gets the radius value
+	 * 
+	 * @methodtype  get
+	 * @methodproperties primitive  
+	 *
+	 * @return The radius value
+	 */
 	public double getRadius() {
 		return radius;
 	}
-
+	
+	/**
+	 * Sets the radius value
+	 * 
+	 * @methodtype  set
+	 * @methodproperties composed
+	 * 
+	 * @param radius The radius value
+	 */
 	public void setRadius(double radius) {
 		if(!checkRadiusValidity(radius)) {
 			throw new IllegalArgumentException("Radius must not be smaller than 0");
 		}
 		this.radius = radius;
 	}
-
+	
+	/**
+	 * Computes the distance between two spheric coordinates with great circle distance formel
+	 * 
+	 * @methodtype  command
+	 * @methodproperties template  
+	 *
+	 * @param coordinate The another coordinate
+	 * @return The distance
+	 */
 	@Override
 	public double getDistance(Coordinate coordinate) {
 		
@@ -102,7 +176,16 @@ public class SphericCoordinate extends DataObject implements Coordinate  {
 		
 		return distance;
 	}
-
+	
+	/**
+	 * Tests whether this and another coordinates are equal
+	 * 
+	 * @methodtype  comparison
+	 * @methodproperties template  
+	 *
+	 * @param coordinate The another coordinate
+	 * @return True if the two coordinates are equal, false if not
+	 */
 	@Override
 	public boolean isEqual(Coordinate coordinate) {
 		if(this == coordinate) {
@@ -143,7 +226,7 @@ public class SphericCoordinate extends DataObject implements Coordinate  {
 	}
 	
 	/**
-	 * Computes the lontitude distance of this and another coordinate object.
+	 * Computes the longitude distance of this and another coordinate object.
 	 * 
 	 * @methodtype helper 
 	 * 
@@ -160,7 +243,7 @@ public class SphericCoordinate extends DataObject implements Coordinate  {
 	/**
 	 * Checks whether a coordinate object is valid (not equal null)
 	 * 
-	 * @methodtype helper 
+	 * @methodtype assertion
 	 * 
 	 * @param coordinate The coordinate object to check
 	 * @return	true if the object is valid, false if not
@@ -175,7 +258,7 @@ public class SphericCoordinate extends DataObject implements Coordinate  {
 	/**
 	 * Checks whether a latitude value is valid (between -90 and 90)
 	 * 
-	 * @methodtype helper 
+	 * @methodtype assertion
 	 * 
 	 * @param latitude The value to check
 	 * @return	true if the value is valid, false otherwise
@@ -190,7 +273,7 @@ public class SphericCoordinate extends DataObject implements Coordinate  {
 	/**
 	 * Checks whether a longitude value is valid (between -180 and 180)
 	 * 
-	 * @methodtype helper 
+	 * @methodtype assertion 
 	 * 
 	 * @param longitude The value to check
 	 * @return	true if the value is valid, false otherwise
@@ -202,6 +285,14 @@ public class SphericCoordinate extends DataObject implements Coordinate  {
 		return false;
 	}
 	
+	/**
+	 * Checks whether a radius value is valid (greater than 0)
+	 * 
+	 * @methodtype assertion 
+	 * 
+	 * @param radius The value to check
+	 * @return	true if the value is valid, false otherwise
+	 */
 	private boolean checkRadiusValidity(double radius) {
 		if(radius > 0.0) {
 			return true;

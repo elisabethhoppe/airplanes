@@ -25,12 +25,16 @@ public class CartesianCoordinateTest {
 		
 	}
 	
+	// default constructor
+	
 	@Test
 	public void testDefaultConstructor() {
 		assertEquals(0.0, c1.getCoordinateX(), delta);
 		assertEquals(0.0, c1.getCoordinateY(), delta);
 		assertEquals(0.0, c1.getCoordinateZ(), delta);
 	}
+	
+	// distance computing
 	
 	@Test
 	public void testDistance() {
@@ -49,6 +53,8 @@ public class CartesianCoordinateTest {
 	public void testDistanceWithNullObjectShouldThrowException(){
 		assertEquals(0.0, c2.getDistance(c4), delta);
 	}
+	
+	// equality
 	
 	@Test
 	public void testEquals() {
