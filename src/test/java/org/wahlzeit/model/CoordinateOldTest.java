@@ -12,50 +12,50 @@ import org.junit.Test;
  * 
  * @date 01.11.2015
  */
-public class CoordinateTest {
+public class CoordinateOldTest {
 	
-	private Coordinate co1, co2, co3, co4, co5, co6, co7, co8, co9, co10, co11, co12, co13, co14;
+	private CoordinateOld co1, co2, co3, co4, co5, co6, co7, co8, co9, co10, co11, co12, co13, co14;
 	private double delta = 0.00001;
 	
 	@Before
 	public void initializeTest(){
-		co1 = new Coordinate();
-		co2 = new Coordinate(10.0, -10.0);
-		co3 = new Coordinate(-80.0, -70.0);
-		co13 = new Coordinate(90,90);
-		co14 = new Coordinate(90,90);
+		co1 = new CoordinateOld();
+		co2 = new CoordinateOld(10.0, -10.0);
+		co3 = new CoordinateOld(-80.0, -70.0);
+		co13 = new CoordinateOld(90,90);
+		co14 = new CoordinateOld(90,90);
 	}
 	
 	// boundary testing
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testLowLatitudeBoundaryShouldThrowException(){
-		co6 = new Coordinate(-91,0);
+		co6 = new CoordinateOld(-91,0);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testHighLatitudeBoundaryShouldThrowException(){
-		co7 = new Coordinate(91, 0);
+		co7 = new CoordinateOld(91, 0);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testLowLongitudeBoundaryShouldThrowException(){
-		co8 = new Coordinate(0, -181);
+		co8 = new CoordinateOld(0, -181);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testHighLongitudeBoundaryShouldThrowException(){
-		co9 = new Coordinate(0, 181);
+		co9 = new CoordinateOld(0, 181);
 	}
 	
 	@Test
 	public void testHighestBoundaries(){
-		co4 = new Coordinate(90, 180);
+		co4 = new CoordinateOld(90, 180);
 	}
 	
 	@Test
 	public void testLowestBoundaries(){
-		co5 = new Coordinate(-90, -180);
+		co5 = new CoordinateOld(-90, -180);
 	}
 	
 	// test the default constructor
@@ -89,8 +89,8 @@ public class CoordinateTest {
 	
 	@Test
 	public void testDistanceInKM(){
-		co11 = new Coordinate(52.517, 13.40);
-		co12 = new Coordinate(35.70, 139.767);
+		co11 = new CoordinateOld(52.517, 13.40);
+		co12 = new CoordinateOld(35.70, 139.767);
 		assertEquals(233.68156306515726, co11.getDistance(co12), delta);
 		
 	}

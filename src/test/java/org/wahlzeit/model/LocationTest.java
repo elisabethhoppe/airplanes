@@ -12,12 +12,12 @@ import org.junit.Before;
 public class LocationTest {
 	
 	private Location l1,l2;
-	private Coordinate c1;
+	private CoordinateOld c1;
 	
 	@Before
 	public void initializeTest(){
 		l1 = new Location();
-		c1 = new Coordinate(90,30);
+		c1 = new CoordinateOld(90,30);
 		l2 = new Location("meineLocation", c1);
 	}
 	
