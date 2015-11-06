@@ -42,6 +42,7 @@ public class AirplanePhotoFactory extends PhotoFactory{
 		return new AirplanePhoto(id);
 	}
 	
+	
 	/**
 	 * Hidden singleton instance; needs to be initialized from the outside.
 	 */
@@ -71,4 +72,5 @@ public class AirplanePhotoFactory extends PhotoFactory{
 
 		instance = photoFactory;
 	}
+	
 }

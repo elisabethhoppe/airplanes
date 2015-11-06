@@ -21,6 +21,7 @@
 package org.wahlzeit.main;
 
 
+
 import org.wahlzeit.model.GlobalsManager;
 import org.wahlzeit.model.PhotoCaseManager;
 import org.wahlzeit.model.PhotoFactory;
