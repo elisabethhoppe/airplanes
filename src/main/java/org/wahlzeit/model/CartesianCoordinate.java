@@ -16,7 +16,19 @@ public class CartesianCoordinate extends DataObject implements Coordinate {
 	private double coordinateX;
 	private double coordinateY;
 	private double coordinateZ;
-
+	
+	public CartesianCoordinate() {
+		this.setCoordinateX(0.0);
+		this.setCoordinateY(0.0);
+		this.setCoordinateZ(0.0);
+	}
+	
+	public CartesianCoordinate(double x, double y, double z) {
+		this.setCoordinateX(x);
+		this.setCoordinateY(y);
+		this.setCoordinateZ(z);
+	}
+	
 	public double getCoordinateX() {
 		return coordinateX;
 	}

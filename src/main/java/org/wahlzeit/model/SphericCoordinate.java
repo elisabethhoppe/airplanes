@@ -25,6 +25,26 @@ public class SphericCoordinate extends DataObject implements Coordinate  {
 	private double longitude;
 	private double radius;
 	
+	public SphericCoordinate(){
+		this.setLatitude(0.0);
+		this.setLongitude(0.0);
+		// default radius value
+		this.setRadius(6371);
+	}
+	
+	public SphericCoordinate(double latitude, double longitude) {
+		this.setLatitude(latitude);
+		this.setLongitude(longitude);
+		//default radius value
+		this.setRadius(6371);
+	}
+	
+	public SphericCoordinate(double latitude, double longitude, double radius){
+		this.setLatitude(latitude);
+		this.setLongitude(longitude);
+		this.setRadius(radius);
+	}
+	
 	public double getLatitude() {
 		return latitude;
 	}
