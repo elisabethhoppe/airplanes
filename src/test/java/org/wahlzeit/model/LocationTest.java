@@ -16,9 +16,7 @@ public class LocationTest {
 	
 	@Before
 	public void initializeTest(){
-		l1 = new Location();
-		c1 = new CoordinateOld(90,30);
-		l2 = new Location("meineLocation", c1);
+		
 	}
 	
 	
