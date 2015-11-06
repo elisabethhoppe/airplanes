@@ -21,7 +21,7 @@ public class Location extends DataObject{
 	 * members
 	 */
 	private String name;
-	public CoordinateOld coordinate;
+	public Coordinate coordinate;
 	
 	/**
 	 * @methodtype default constructor
@@ -29,7 +29,8 @@ public class Location extends DataObject{
 	 */
 	public Location(){
 		this.setName("defaultLocation");
-		CoordinateOld c = new CoordinateOld();
+		// cartesian is the default coordinate
+		Coordinate c = new CartesianCoordinate();
 		this.setCoordinate(c);
 	}
 	
@@ -37,7 +38,7 @@ public class Location extends DataObject{
 	 * @methodtype constructor
 	 * 
 	 */
-	public Location(String name, CoordinateOld c){
+	public Location(String name, Coordinate c){
 		this.setName(name);
 		this.setCoordinate(c);
 	}
@@ -66,7 +67,7 @@ public class Location extends DataObject{
 	 * 
 	 * @return The coordinate of the location
 	 */
-	public CoordinateOld getCoordinate() {
+	public Coordinate getCoordinate() {
 		return this.coordinate;
 	}
 	
@@ -75,7 +76,7 @@ public class Location extends DataObject{
 	 * 
 	 * @param coordinate The coordinate object to set 
 	 */
-	public void setCoordinate(CoordinateOld coordinate) {
+	public void setCoordinate(Coordinate coordinate) {
 		this.coordinate = coordinate;
 	}
 	
