@@ -2,6 +2,8 @@ package org.wahlzeit.model;
 
 import org.wahlzeit.services.DataObject;
 
+import com.googlecode.objectify.annotation.Container;
+
 /**
  * Location basic class 
  * 
@@ -21,6 +23,7 @@ public class Location extends DataObject{
 	 * members
 	 */
 	private String name;
+	@Container
 	public Coordinate coordinate;
 	
 	/**
