@@ -121,67 +121,6 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	}
 	
 	/**
-	 * Computes the distance between two cartesian coordinates with pythagoras
-	 * 
-	 * @methodtype  command
-	 * @methodproperties template  
-	 *
-	 * @param coordinate The another coordinate
-	 * @return The distance
-	 */
-	/*@Override
-	public double getDistance(Coordinate coordinate) {
-		
-		if(!checkCoordinateValidity(coordinate)){
-			throw new IllegalArgumentException("Argument coordinate object is null");
-		}
-		
-		CartesianCoordinate cCoordinate = getCartesianCoordinate(coordinate);
-		
-		// computing the distance with pythagoras
-		double powerX = Math.pow(this.getXDistance(cCoordinate), 2.0);
-		double powerY = Math.pow(this.getYDistance(cCoordinate), 2.0);
-		double powerZ = Math.pow(this.getZDistance(cCoordinate), 2.0);
-		double distance = Math.sqrt(powerX + powerY + powerZ);
-		return distance;
-	}*/
-	
-	/**
-	 * Tests whether this and another coordinates are equal
-	 * 
-	 * @methodtype  comparison
-	 * @methodproperties template  
-	 *
-	 * @param coordinate The another coordinate
-	 * @return True if the two coordinates are equal, false if not
-	 */
-	/*@Override
-	public boolean isEqual(Coordinate coordinate) {
-		if(this == coordinate) {
-			return true;
-		}
-		
-		/*if(this.getClass() != coordinate.getClass()) { 
-			return false;
-		}*/
-		
-		/*if(!(coordinate instanceof CartesianCoordinate)) {
-			return false;
-		}
-		
-		CartesianCoordinate cCoordinate = getCartesianCoordinate(coordinate);
-		
-		if(cCoordinate.getCoordinateX() == this.getCoordinateX()
-				&& cCoordinate.getCoordinateY() == this.getCoordinateY()
-				&& cCoordinate.getCoordinateZ() == this.getCoordinateZ()) {			
-			return true;
-		}
-		
-		return false;
-		
-	}*/
-	
-	/**
 	 * Computes the x distance
 	 * 
 	 * @methodtype  helper
@@ -228,64 +167,6 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		}
 		return this.getCoordinateZ()-coordinate.getCoordinateZ();
 	}
-	
-	/**
-	 * Gets the coordinate as a cartesian coordinate
-	 * 
-	 * @methodtype conversion
-	 * 
-	 * @param coordinate A coordinate to convert
-	 * @return The coordinate as CartesianCoordinate object
-	 */
-	/*private CartesianCoordinate getCartesianCoordinate(Coordinate coordinate) {
-		if (coordinate instanceof CartesianCoordinate) {
-			return (CartesianCoordinate) coordinate;
-		} 
-		else if (coordinate instanceof SphericCoordinate) {
-			return convertToCartesianCoordinate((SphericCoordinate) coordinate);
-		}
-		else {
-			throw new IllegalArgumentException("This coordinate type is not known.");
-		}
-	}*/
-	
-	/**
-	 * Does the conversion to a cartesian coordinate subclass 
-	 * 
-	 * @methodtype conversion
-	 * 
-	 * @param coordinate A coordinate to convert
-	 * @return The coordinate as CartesianCoordinate object
-	 */
-	/*private CartesianCoordinate convertToCartesianCoordinate(SphericCoordinate coordinate) {
-
-		double latitude = Math.toRadians(coordinate.getLatitude());
-		double longitude = Math.toRadians(coordinate.getLongitude());
-		double radius = coordinate.getRadius();
-
-		double x = radius * Math.cos(longitude) * Math.sin(latitude);
-		double y = radius * Math.sin(longitude) * Math.sin(latitude);
-		double z = radius * Math.cos(latitude);
-
-		return new CartesianCoordinate(x, y, z);
-	}*/
-	
-	
-	/**
-	 * Checks whether a coordinate is valid ( not null )
-	 * 
-	 * @methodtype  assertion
-	 * 
-	 *
-	 * @param coordinate The coordinate
-	 * @return true if coordinate is not null, false if it is null
-	 */
-	/*private boolean checkCoordinateValidity(Coordinate coordinate){
-		if(coordinate == null){
-			return false;
-		}
-		return true;
-	}*/
 	
 	/**
 	 * Gets the coordinate as a cartesian coordinate.

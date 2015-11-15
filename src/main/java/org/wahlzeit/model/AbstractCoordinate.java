@@ -3,7 +3,9 @@ package org.wahlzeit.model;
 import org.wahlzeit.services.DataObject;
 
 /**
- * Abstract coordinate class for all coordinate representations
+ * Abstract coordinate class for all coordinate representations. The cartesian representation is default. 
+ * All coordinate objects are convert to the cartesian one and then all the functions are performed, e.g. distance 
+ * computing. So all subclasses must provide a conversion to the cartesian representation.
  * 
  * 
  * @version 1.0

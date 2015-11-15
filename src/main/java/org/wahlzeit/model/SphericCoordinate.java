@@ -143,73 +143,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 		this.radius = radius;
 	}
 	
-	/**
-	 * Computes the distance between two spheric coordinates with great circle distance formel
-	 * 
-	 * @methodtype  command
-	 * @methodproperties template  
-	 *
-	 * @param coordinate The another coordinate
-	 * @return The distance
-	 */
-	/*@Override
-	public double getDistance(Coordinate coordinate) {
-		
-		if(!checkCoordinateValidity(coordinate)){
-			throw new IllegalArgumentException("Argument coordinate object is null");
-		}
-		
-		SphericCoordinate sCoordinate = getSphericCoordinate(coordinate);
-		
-		//  computes the distance with formula from Wikipedia (Great-circle distance)
-		
-		double sinusLatitudeThis = Math.sin(Math.toRadians(this.getLatitude()));
-		double sinusLatitudeOther = Math.sin(Math.toRadians(sCoordinate.getLatitude()));
-		double cosinusLatitudeThis = Math.cos(Math.toRadians(this.getLatitude()));
-		double cosinusLatitudeOther = Math.cos(Math.toRadians(sCoordinate.getLatitude()));
-		double cosinusLongitudeDistance = Math.cos(Math.toRadians(this.getLongitudeDistance(sCoordinate)));
-		
-		double distance = Math.acos( (sinusLatitudeThis*sinusLatitudeOther) + 
-				 	(cosinusLatitudeThis*cosinusLatitudeOther*cosinusLongitudeDistance) ) * radius;
-		
-		
-		
-		return distance;
-	}*/
 	
-	/**
-	 * Tests whether this and another coordinates are equal
-	 * 
-	 * @methodtype  comparison
-	 * @methodproperties template  
-	 *
-	 * @param coordinate The another coordinate
-	 * @return True if the two coordinates are equal, false if not
-	 */
-	/*@Override
-	public boolean isEqual(Coordinate coordinate) {
-		if(this == coordinate) {
-			return true;
-		}
-		
-		/*if(this.getClass() != coordinate.getClass()) { 
-			return false;
-		}*/
-		
-		/*if(!(coordinate instanceof SphericCoordinate)) {
-			return false;
-		}
-		
-		SphericCoordinate sCoordinate = getSphericCoordinate(coordinate);
-		if(sCoordinate.getLatitude() == this.getLatitude()
-				&& sCoordinate.getLongitude() == this.getLongitude()
-				&& sCoordinate.getRadius() == this.getRadius()) {			
-			return true;
-		}
-		
-		return false;
-		
-	}*/
 	
 	/**
 	 * Computes the latitude distance of this and another coordinate object.
@@ -219,12 +153,12 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 * @param coordinate The another coordinate object
 	 * @return	The distance of latitudes
 	 */
-	/*public double getLatitudeDistance(SphericCoordinate coordinate){
+	public double getLatitudeDistance(SphericCoordinate coordinate){
 		if(!checkCoordinateValidity(coordinate)){
 			throw new IllegalArgumentException("Argument coordinate object is null");
 		}
 		return Math.abs(this.getLatitude() - coordinate.getLatitude());
-	}*/
+	}
 	
 	/**
 	 * Computes the longitude distance of this and another coordinate object.
@@ -234,68 +168,12 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 * @param coordinate The another coordinate object
 	 * @return	The distance of lontitudes
 	 */
-	/*public double getLongitudeDistance(SphericCoordinate coordinate){
+	public double getLongitudeDistance(SphericCoordinate coordinate){
 		if(!checkCoordinateValidity(coordinate)){
 			throw new IllegalArgumentException("Argument coordinate object is null");
 		}
 		return Math.abs(this.getLongitude() - coordinate.getLongitude());
-	}*/
-	
-	/**
-	 * Gets the coordinate as a spheric coordinate
-	 * 
-	 * @methodtype conversion
-	 * 
-	 * @param coordinate A coordinate to convert
-	 * @return The coordinate as SphericCoordinate object
-	 */
-	/*private SphericCoordinate getSphericCoordinate(Coordinate coordinate) {
-		if (coordinate instanceof SphericCoordinate) {
-			return (SphericCoordinate) coordinate;
-		} 
-		else if (coordinate instanceof CartesianCoordinate) {
-			return convertToSphericCoordinate((CartesianCoordinate) coordinate);
-		} 
-		else {
-			throw new IllegalArgumentException("This coordinate type is not known.");
-		}
-	}*/
-
-	/**
-	 * Does the conversion to a spheric coordinate subclass 
-	 * 
-	 * @methodtype conversion
-	 * 
-	 * @param coordinate A coordinate to convert
-	 * @return The coordinate as SphericCoordinate object
-	 */
-	/*private SphericCoordinate convertToSphericCoordinate(CartesianCoordinate coordinate) {
-		double xValue = coordinate.getCoordinateX();
-		double yValue = coordinate.getCoordinateY();
-		double zValue = coordinate.getCoordinateZ();
-
-		double radius = Math.sqrt(xValue * xValue + yValue * yValue + zValue * zValue);
-		double latitude = Math.toDegrees(Math.acos(zValue / radius));
-		double longitude = Math.toDegrees(Math.atan2(yValue, xValue));
-
-		return new SphericCoordinate(latitude, longitude, radius);
-	}*/
-
-	
-	/**
-	 * Checks whether a coordinate object is valid (not equal null)
-	 * 
-	 * @methodtype assertion
-	 * 
-	 * @param coordinate The coordinate object to check
-	 * @return	true if the object is valid, false if not
-	 */
-	/*private boolean checkCoordinateValidity(Coordinate coordinate){
-		if(coordinate == null){
-			return false;
-		}
-		return true;
-	}*/
+	}
 	
 	/**
 	 * Checks whether a latitude value is valid (between -90 and 90)
