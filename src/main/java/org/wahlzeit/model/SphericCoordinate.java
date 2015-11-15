@@ -151,7 +151,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 * @param coordinate The another coordinate
 	 * @return The distance
 	 */
-	@Override
+	/*@Override
 	public double getDistance(Coordinate coordinate) {
 		
 		if(!checkCoordinateValidity(coordinate)){
@@ -174,7 +174,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 		
 		
 		return distance;
-	}
+	}*/
 	
 	/**
 	 * Tests whether this and another coordinates are equal
@@ -185,7 +185,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 * @param coordinate The another coordinate
 	 * @return True if the two coordinates are equal, false if not
 	 */
-	@Override
+	/*@Override
 	public boolean isEqual(Coordinate coordinate) {
 		if(this == coordinate) {
 			return true;
@@ -197,7 +197,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 		
 		/*if(!(coordinate instanceof SphericCoordinate)) {
 			return false;
-		}*/
+		}
 		
 		SphericCoordinate sCoordinate = getSphericCoordinate(coordinate);
 		if(sCoordinate.getLatitude() == this.getLatitude()
@@ -208,7 +208,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 		
 		return false;
 		
-	}
+	}*/
 	
 	/**
 	 * Computes the latitude distance of this and another coordinate object.
@@ -218,12 +218,12 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 * @param coordinate The another coordinate object
 	 * @return	The distance of latitudes
 	 */
-	public double getLatitudeDistance(SphericCoordinate coordinate){
+	/*public double getLatitudeDistance(SphericCoordinate coordinate){
 		if(!checkCoordinateValidity(coordinate)){
 			throw new IllegalArgumentException("Argument coordinate object is null");
 		}
 		return Math.abs(this.getLatitude() - coordinate.getLatitude());
-	}
+	}*/
 	
 	/**
 	 * Computes the longitude distance of this and another coordinate object.
@@ -233,12 +233,12 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 * @param coordinate The another coordinate object
 	 * @return	The distance of lontitudes
 	 */
-	public double getLongitudeDistance(SphericCoordinate coordinate){
+	/*public double getLongitudeDistance(SphericCoordinate coordinate){
 		if(!checkCoordinateValidity(coordinate)){
 			throw new IllegalArgumentException("Argument coordinate object is null");
 		}
 		return Math.abs(this.getLongitude() - coordinate.getLongitude());
-	}
+	}*/
 	
 	/**
 	 * Gets the coordinate as a spheric coordinate
@@ -248,7 +248,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 * @param coordinate A coordinate to convert
 	 * @return The coordinate as SphericCoordinate object
 	 */
-	private SphericCoordinate getSphericCoordinate(Coordinate coordinate) {
+	/*private SphericCoordinate getSphericCoordinate(Coordinate coordinate) {
 		if (coordinate instanceof SphericCoordinate) {
 			return (SphericCoordinate) coordinate;
 		} 
@@ -258,7 +258,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 		else {
 			throw new IllegalArgumentException("This coordinate type is not known.");
 		}
-	}
+	}*/
 
 	/**
 	 * Does the conversion to a spheric coordinate subclass 
@@ -268,7 +268,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 * @param coordinate A coordinate to convert
 	 * @return The coordinate as SphericCoordinate object
 	 */
-	private SphericCoordinate convertToSphericCoordinate(CartesianCoordinate coordinate) {
+	/*private SphericCoordinate convertToSphericCoordinate(CartesianCoordinate coordinate) {
 		double xValue = coordinate.getCoordinateX();
 		double yValue = coordinate.getCoordinateY();
 		double zValue = coordinate.getCoordinateZ();
@@ -278,7 +278,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 		double longitude = Math.toDegrees(Math.atan2(yValue, xValue));
 
 		return new SphericCoordinate(latitude, longitude, radius);
-	}
+	}*/
 
 	
 	/**
@@ -289,12 +289,12 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 * @param coordinate The coordinate object to check
 	 * @return	true if the object is valid, false if not
 	 */
-	private boolean checkCoordinateValidity(Coordinate coordinate){
+	/*private boolean checkCoordinateValidity(Coordinate coordinate){
 		if(coordinate == null){
 			return false;
 		}
 		return true;
-	}
+	}*/
 	
 	/**
 	 * Checks whether a latitude value is valid (between -90 and 90)
@@ -339,6 +339,26 @@ public class SphericCoordinate extends AbstractCoordinate  {
 			return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * Gets the coordinate as a cartesian coordinate.
+	 * 
+	 * @methodtype conversion
+	 *
+	 * @return The coordinate as CartesianCoordinate object
+	 */
+	@Override
+	public CartesianCoordinate getCartesianCoordinate() {
+		double latitude = Math.toRadians(this.getLatitude());
+		double longitude = Math.toRadians(this.getLongitude());
+		double radius = this.getRadius();
+
+		double x = radius * Math.cos(longitude) * Math.sin(latitude);
+		double y = radius * Math.sin(longitude) * Math.sin(latitude);
+		double z = radius * Math.cos(latitude);
+
+		return new CartesianCoordinate(x, y, z);
 	}
 
 }

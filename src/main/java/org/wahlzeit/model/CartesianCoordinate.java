@@ -129,7 +129,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @param coordinate The another coordinate
 	 * @return The distance
 	 */
-	@Override
+	/*@Override
 	public double getDistance(Coordinate coordinate) {
 		
 		if(!checkCoordinateValidity(coordinate)){
@@ -144,7 +144,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		double powerZ = Math.pow(this.getZDistance(cCoordinate), 2.0);
 		double distance = Math.sqrt(powerX + powerY + powerZ);
 		return distance;
-	}
+	}*/
 	
 	/**
 	 * Tests whether this and another coordinates are equal
@@ -155,7 +155,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @param coordinate The another coordinate
 	 * @return True if the two coordinates are equal, false if not
 	 */
-	@Override
+	/*@Override
 	public boolean isEqual(Coordinate coordinate) {
 		if(this == coordinate) {
 			return true;
@@ -167,7 +167,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		
 		/*if(!(coordinate instanceof CartesianCoordinate)) {
 			return false;
-		}*/
+		}
 		
 		CartesianCoordinate cCoordinate = getCartesianCoordinate(coordinate);
 		
@@ -179,7 +179,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		
 		return false;
 		
-	}
+	}*/
 	
 	/**
 	 * Computes the x distance
@@ -237,7 +237,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @param coordinate A coordinate to convert
 	 * @return The coordinate as CartesianCoordinate object
 	 */
-	private CartesianCoordinate getCartesianCoordinate(Coordinate coordinate) {
+	/*private CartesianCoordinate getCartesianCoordinate(Coordinate coordinate) {
 		if (coordinate instanceof CartesianCoordinate) {
 			return (CartesianCoordinate) coordinate;
 		} 
@@ -247,7 +247,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		else {
 			throw new IllegalArgumentException("This coordinate type is not known.");
 		}
-	}
+	}*/
 	
 	/**
 	 * Does the conversion to a cartesian coordinate subclass 
@@ -257,7 +257,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @param coordinate A coordinate to convert
 	 * @return The coordinate as CartesianCoordinate object
 	 */
-	private CartesianCoordinate convertToCartesianCoordinate(SphericCoordinate coordinate) {
+	/*private CartesianCoordinate convertToCartesianCoordinate(SphericCoordinate coordinate) {
 
 		double latitude = Math.toRadians(coordinate.getLatitude());
 		double longitude = Math.toRadians(coordinate.getLongitude());
@@ -268,7 +268,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		double z = radius * Math.cos(latitude);
 
 		return new CartesianCoordinate(x, y, z);
-	}
+	}*/
 	
 	
 	/**
@@ -280,11 +280,23 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @param coordinate The coordinate
 	 * @return true if coordinate is not null, false if it is null
 	 */
-	private boolean checkCoordinateValidity(Coordinate coordinate){
+	/*private boolean checkCoordinateValidity(Coordinate coordinate){
 		if(coordinate == null){
 			return false;
 		}
 		return true;
+	}*/
+	
+	/**
+	 * Gets the coordinate as a cartesian coordinate.
+	 * 
+	 * @methodtype conversion
+	 *
+	 * @return The coordinate as CartesianCoordinate object
+	 */
+	@Override
+	public CartesianCoordinate getCartesianCoordinate() {
+		return this;
 	}
 
 }
