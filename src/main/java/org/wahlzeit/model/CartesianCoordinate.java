@@ -7,9 +7,9 @@ import org.wahlzeit.services.DataObject;
  * 
  * Represents a location based on cartesian coordinates
  * 
- * @version 1.0
+ * @version 2.0
  * 
- * @date 5.11.2015
+ * @date 15.11.2015
  */
 public class CartesianCoordinate extends DataObject implements Coordinate {
 	
@@ -132,10 +132,12 @@ public class CartesianCoordinate extends DataObject implements Coordinate {
 	@Override
 	public double getDistance(Coordinate coordinate) {
 		
+		CartesianCoordinate cCoordinate = getCartesianCoordinate(coordinate);
+		
 		// computing the distance with pythagoras
-		double powerX = Math.pow(this.getXDistance((CartesianCoordinate) coordinate), 2.0);
-		double powerY = Math.pow(this.getYDistance((CartesianCoordinate) coordinate), 2.0);
-		double powerZ = Math.pow(this.getZDistance((CartesianCoordinate) coordinate), 2.0);
+		double powerX = Math.pow(this.getXDistance(cCoordinate), 2.0);
+		double powerY = Math.pow(this.getYDistance(cCoordinate), 2.0);
+		double powerZ = Math.pow(this.getZDistance(cCoordinate), 2.0);
 		double distance = Math.sqrt(powerX + powerY + powerZ);
 		return distance;
 	}
@@ -155,19 +157,19 @@ public class CartesianCoordinate extends DataObject implements Coordinate {
 			return true;
 		}
 		
-		if(this.getClass() != coordinate.getClass()) { 
+		/*if(this.getClass() != coordinate.getClass()) { 
 			return false;
-		}
+		}*/
 		
-		if(!(coordinate instanceof CartesianCoordinate)) {
+		/*if(!(coordinate instanceof CartesianCoordinate)) {
 			return false;
-		}
+		}*/
 		
-		CartesianCoordinate sCoordinate = (CartesianCoordinate) coordinate;
+		CartesianCoordinate cCoordinate = getCartesianCoordinate(coordinate);
 		
-		if(sCoordinate.getCoordinateX() == this.getCoordinateX()
-				&& sCoordinate.getCoordinateY() == this.getCoordinateY()
-				&& sCoordinate.getCoordinateZ() == this.getCoordinateZ()) {			
+		if(cCoordinate.getCoordinateX() == this.getCoordinateX()
+				&& cCoordinate.getCoordinateY() == this.getCoordinateY()
+				&& cCoordinate.getCoordinateZ() == this.getCoordinateZ()) {			
 			return true;
 		}
 		
@@ -222,6 +224,48 @@ public class CartesianCoordinate extends DataObject implements Coordinate {
 		}
 		return this.getCoordinateZ()-coordinate.getCoordinateZ();
 	}
+	
+	/**
+	 * Gets the coordinate as a cartesian coordinate
+	 * 
+	 * @methodtype conversion
+	 * 
+	 * @param coordinate A coordinate to convert
+	 * @return The coordinate as CartesianCoordinate object
+	 */
+	private CartesianCoordinate getCartesianCoordinate(Coordinate coordinate) {
+		if (coordinate instanceof CartesianCoordinate) {
+			return (CartesianCoordinate) coordinate;
+		} 
+		else if (coordinate instanceof SphericCoordinate) {
+			return convertToCartesianCoordinate((SphericCoordinate) coordinate);
+		}
+		else {
+			throw new IllegalArgumentException("This coordinate type is not known.");
+		}
+	}
+	
+	/**
+	 * Does the conversion to a cartesian coordinate subclass 
+	 * 
+	 * @methodtype conversion
+	 * 
+	 * @param coordinate A coordinate to convert
+	 * @return The coordinate as CartesianCoordinate object
+	 */
+	private CartesianCoordinate convertToCartesianCoordinate(SphericCoordinate coordinate) {
+
+		double latitude = Math.toRadians(coordinate.getLatitude());
+		double longitude = Math.toRadians(coordinate.getLongitude());
+		double radius = coordinate.getRadius();
+
+		double x = radius * Math.cos(longitude) * Math.sin(latitude);
+		double y = radius * Math.sin(longitude) * Math.sin(latitude);
+		double z = radius * Math.cos(latitude);
+
+		return new CartesianCoordinate(x, y, z);
+	}
+	
 	
 	/**
 	 * Checks whether a coordinate is valid ( not null )

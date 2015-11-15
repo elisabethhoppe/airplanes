@@ -7,9 +7,9 @@ import org.wahlzeit.services.DataObject;
  * 
  * Represents a location based on spheric coordinate.
  * 
- * @version 1.0
+ * @version 2.0
  * 
- * @date 5.11.2015
+ * @date 15.11.2015
  */
 public class SphericCoordinate extends DataObject implements Coordinate  {
 	
@@ -159,7 +159,7 @@ public class SphericCoordinate extends DataObject implements Coordinate  {
 			throw new IllegalArgumentException("Argument coordinate object is null");
 		}
 		
-		SphericCoordinate sCoordinate = (SphericCoordinate) coordinate;
+		SphericCoordinate sCoordinate = getSphericCoordinate(coordinate);
 		
 		//  computes the distance with formula from Wikipedia (Great-circle distance)
 		
@@ -191,15 +191,16 @@ public class SphericCoordinate extends DataObject implements Coordinate  {
 		if(this == coordinate) {
 			return true;
 		}
-		if(this.getClass() != coordinate.getClass()) { 
-			return false;
-		}
 		
-		if(!(coordinate instanceof SphericCoordinate)) {
+		/*if(this.getClass() != coordinate.getClass()) { 
 			return false;
-		}
+		}*/
 		
-		SphericCoordinate sCoordinate = (SphericCoordinate) coordinate;
+		/*if(!(coordinate instanceof SphericCoordinate)) {
+			return false;
+		}*/
+		
+		SphericCoordinate sCoordinate = getSphericCoordinate(coordinate);
 		if(sCoordinate.getLatitude() == this.getLatitude()
 				&& sCoordinate.getLongitude() == this.getLongitude()
 				&& sCoordinate.getRadius() == this.getRadius()) {			
@@ -239,6 +240,47 @@ public class SphericCoordinate extends DataObject implements Coordinate  {
 		}
 		return Math.abs(this.getLongitude() - coordinate.getLongitude());
 	}
+	
+	/**
+	 * Gets the coordinate as a spheric coordinate
+	 * 
+	 * @methodtype conversion
+	 * 
+	 * @param coordinate A coordinate to convert
+	 * @return The coordinate as SphericCoordinate object
+	 */
+	private SphericCoordinate getSphericCoordinate(Coordinate coordinate) {
+		if (coordinate instanceof SphericCoordinate) {
+			return (SphericCoordinate) coordinate;
+		} 
+		else if (coordinate instanceof CartesianCoordinate) {
+			return convertToSphericCoordinate((CartesianCoordinate) coordinate);
+		} 
+		else {
+			throw new IllegalArgumentException("This coordinate type is not known.");
+		}
+	}
+
+	/**
+	 * Does the conversion to a spheric coordinate subclass 
+	 * 
+	 * @methodtype conversion
+	 * 
+	 * @param coordinate A coordinate to convert
+	 * @return The coordinate as SphericCoordinate object
+	 */
+	private SphericCoordinate convertToSphericCoordinate(CartesianCoordinate coordinate) {
+		double xValue = coordinate.getCoordinateX();
+		double yValue = coordinate.getCoordinateY();
+		double zValue = coordinate.getCoordinateZ();
+
+		double radius = Math.sqrt(xValue * xValue + yValue * yValue + zValue * zValue);
+		double latitude = Math.toDegrees(Math.acos(zValue / radius));
+		double longitude = Math.toDegrees(Math.atan2(yValue, xValue));
+
+		return new SphericCoordinate(latitude, longitude, radius);
+	}
+
 	
 	/**
 	 * Checks whether a coordinate object is valid (not equal null)
