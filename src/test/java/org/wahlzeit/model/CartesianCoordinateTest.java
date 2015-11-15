@@ -8,13 +8,14 @@ import org.junit.Test;
 /**
  * Cartesian Coordinate test class 
  * 
- * @version 1.0
+ * @version 2.0
  * 
- * @date 06.11.2015
+ * @date 15.11.2015
  */
 public class CartesianCoordinateTest {
 	
-	private CartesianCoordinate c1,c2,c3, c4;
+	private CartesianCoordinate c1,c2,c3, c4, c5, c6;
+	private SphericCoordinate s1;
 	private double delta = 0.001;
 	
 	@Before
@@ -22,6 +23,9 @@ public class CartesianCoordinateTest {
 		c1 = new CartesianCoordinate();
 		c2 = new CartesianCoordinate(45,60,50);
 		c3 = new CartesianCoordinate(20.5,20.4,20.3);
+		c5 = new CartesianCoordinate(45,60,50);
+		c6 = new CartesianCoordinate(0, 0, 6371);
+		s1 = new SphericCoordinate(0,50, 6371);
 		
 	}
 	
@@ -49,6 +53,11 @@ public class CartesianCoordinateTest {
 		assertEquals(0.0, c2.getDistance(c2), delta);
 	}
 	
+	@Test
+	public void testDistanceWithSphericCoordinate() {
+		assertEquals(0.0, c6.getDistance(s1), delta);
+	}
+	
 	@Test(expected=IllegalArgumentException.class) 
 	public void testDistanceWithNullObjectShouldThrowException(){
 		assertEquals(0.0, c2.getDistance(c4), delta);
@@ -58,8 +67,14 @@ public class CartesianCoordinateTest {
 	
 	@Test
 	public void testEquals() {
-		assertFalse(c3.equals(c1));
-		assertTrue(c3.equals(c3));
+		assertFalse(c3.isEqual(c1));
+		assertTrue(c3.isEqual(c3));
+		assertTrue(c2.isEqual(c5));
+	}
+	
+	@Test
+	public void testEqualsWithSpheric() {
+		assertTrue(c6.isEqual(s1));
 	}
 	
 }

@@ -155,7 +155,7 @@ public class SphericCoordinate extends DataObject implements Coordinate  {
 	@Override
 	public double getDistance(Coordinate coordinate) {
 		
-		if(!checkCoordinateValidity((SphericCoordinate) coordinate)){
+		if(!checkCoordinateValidity(coordinate)){
 			throw new IllegalArgumentException("Argument coordinate object is null");
 		}
 		
@@ -290,7 +290,7 @@ public class SphericCoordinate extends DataObject implements Coordinate  {
 	 * @param coordinate The coordinate object to check
 	 * @return	true if the object is valid, false if not
 	 */
-	private boolean checkCoordinateValidity(SphericCoordinate coordinate){
+	private boolean checkCoordinateValidity(Coordinate coordinate){
 		if(coordinate == null){
 			return false;
 		}

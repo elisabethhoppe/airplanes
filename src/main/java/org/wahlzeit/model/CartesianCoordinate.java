@@ -132,6 +132,10 @@ public class CartesianCoordinate extends DataObject implements Coordinate {
 	@Override
 	public double getDistance(Coordinate coordinate) {
 		
+		if(!checkCoordinateValidity(coordinate)){
+			throw new IllegalArgumentException("Argument coordinate object is null");
+		}
+		
 		CartesianCoordinate cCoordinate = getCartesianCoordinate(coordinate);
 		
 		// computing the distance with pythagoras
