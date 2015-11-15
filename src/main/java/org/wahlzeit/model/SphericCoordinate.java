@@ -17,6 +17,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 * for persistence issues
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	/**
 	 * members
 	 */
@@ -32,7 +33,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 		this.setLatitude(0.0);
 		this.setLongitude(0.0);
 		// default radius value
-		this.setRadius(6371);
+		this.setRadius(6371.0);
 	}
 	
 	/**
@@ -45,7 +46,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 		this.setLatitude(latitude);
 		this.setLongitude(longitude);
 		//default radius value
-		this.setRadius(6371);
+		this.setRadius(6371.0);
 	}
 	
 	/**
