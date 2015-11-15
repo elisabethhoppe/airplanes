@@ -1,6 +1,5 @@
 package org.wahlzeit.model;
 
-import org.wahlzeit.services.DataObject;
 
 /**
  * Spheric Coordinate class
@@ -11,13 +10,13 @@ import org.wahlzeit.services.DataObject;
  * 
  * @date 15.11.2015
  */
-public class SphericCoordinate extends DataObject implements Coordinate  {
+public class SphericCoordinate extends AbstractCoordinate  {
+	
 	
 	/**
 	 * for persistence issues
 	 */
 	private static final long serialVersionUID = 1L;
-
 	/**
 	 * members
 	 */

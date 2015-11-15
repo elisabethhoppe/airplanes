@@ -1,6 +1,6 @@
 package org.wahlzeit.model;
 
-import org.wahlzeit.services.DataObject;
+
 
 /**
  * Cartesian coordinate class
@@ -11,7 +11,7 @@ import org.wahlzeit.services.DataObject;
  * 
  * @date 15.11.2015
  */
-public class CartesianCoordinate extends DataObject implements Coordinate {
+public class CartesianCoordinate extends AbstractCoordinate {
 	
 	/**
 	 * for persistence issues
