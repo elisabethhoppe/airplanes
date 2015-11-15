@@ -29,7 +29,6 @@ public abstract class AbstractCoordinate extends DataObject implements Coordinat
 	 * @param coordinate The another coordinate
 	 * @return The distance
 	 */
-	@Override
 	public double getDistance(Coordinate coordinate) {
 		if(!checkCoordinateValidity(coordinate)) {
 			throw new IllegalArgumentException("Argument coordinate object is null");
