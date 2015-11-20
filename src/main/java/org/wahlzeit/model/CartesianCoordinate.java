@@ -7,9 +7,9 @@ package org.wahlzeit.model;
  * 
  * Represents a location based on cartesian coordinates
  * 
- * @version 2.0
+ * @version 3.0
  * 
- * @date 15.11.2015
+ * @date 20.11.2015
  */
 public class CartesianCoordinate extends AbstractCoordinate {
 	
@@ -43,9 +43,11 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @param z The z value
 	 */
 	public CartesianCoordinate(double x, double y, double z) {
+		
 		this.setCoordinateX(x);
 		this.setCoordinateY(y);
 		this.setCoordinateZ(z);
+		
 	}
 	
 	/**
@@ -57,6 +59,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @return The x value
 	 */
 	public double getCoordinateX() {
+		assertIsADouble(coordinateX);
 		return coordinateX;
 	}
 	
@@ -69,6 +72,9 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @param coordinateX The x value
 	 */
 	public void setCoordinateX(double coordinateX) {
+		
+		assertIsADouble(coordinateX);
+		
 		this.coordinateX = coordinateX;
 	}
 	
@@ -81,6 +87,8 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @return The y value
 	 */
 	public double getCoordinateY() {
+		
+		assertIsADouble(coordinateY);
 		return coordinateY;
 	}
 	
@@ -93,6 +101,8 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @param coordinateY The y value
 	 */
 	public void setCoordinateY(double coordinateY) {
+		
+		assertIsADouble(coordinateY);
 		this.coordinateY = coordinateY;
 	}
 	
@@ -105,6 +115,8 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @return The z value
 	 */
 	public double getCoordinateZ() {
+		
+		assertIsADouble(coordinateZ);
 		return coordinateZ;
 	}
 	
@@ -117,6 +129,8 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @param coordinateZ The z value
 	 */
 	public void setCoordinateZ(double coordinateZ) {
+		
+		assertIsADouble(coordinateZ);
 		this.coordinateZ = coordinateZ;
 	}
 	
@@ -130,10 +144,11 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @return The x distance value
 	 */
 	public double getXDistance(CartesianCoordinate coordinate){
-		if(!checkCoordinateValidity(coordinate)){
-			throw new IllegalArgumentException("Coordinate must not bei null");
-		}
-		return this.getCoordinateX()-coordinate.getCoordinateX();
+		assertCoordinateValidity(coordinate);
+		
+		double distance = this.getCoordinateX()-coordinate.getCoordinateX();
+		assertIsADouble(distance);
+		return distance;
 	}
 	
 	/**
@@ -146,10 +161,12 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @return The y distance value
 	 */
 	public double getYDistance(CartesianCoordinate coordinate){
-		if(!checkCoordinateValidity(coordinate)){
-			throw new IllegalArgumentException("Coordinate must not bei null");
-		}
-		return this.getCoordinateY()-coordinate.getCoordinateY();
+		
+		assertCoordinateValidity(coordinate);
+		
+		double distance = this.getCoordinateY()-coordinate.getCoordinateY();
+		assertIsADouble(distance);
+		return distance;
 	}
 	
 	/**
@@ -162,10 +179,12 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @return The z distance value
 	 */
 	public double getZDistance(CartesianCoordinate coordinate){
-		if(!checkCoordinateValidity(coordinate)){
-			throw new IllegalArgumentException("Coordinate must not bei null");
-		}
-		return this.getCoordinateZ()-coordinate.getCoordinateZ();
+		
+		assertCoordinateValidity(coordinate);
+		
+		double distance = this.getCoordinateZ()-coordinate.getCoordinateZ();
+		assertIsADouble(distance);
+		return distance;
 	}
 	
 	/**
@@ -178,6 +197,20 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	@Override
 	public CartesianCoordinate getCartesianCoordinate() {
 		return this;
+	}
+	
+	/**
+	 * Checks whether a object is a double number object. If not, throws exception
+	 * 
+	 * @methodtype assertion
+	 * 
+	 * @param number The number to check
+	 * 
+	 */
+	private void assertIsADouble(double number){
+		if(Double.isNaN(number)){
+			throw new IllegalArgumentException("Some components are not numbers, but have to be.");
+		}
 	}
 
 }

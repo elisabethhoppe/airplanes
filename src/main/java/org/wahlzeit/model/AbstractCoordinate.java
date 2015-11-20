@@ -8,9 +8,9 @@ import org.wahlzeit.services.DataObject;
  * computing. So all subclasses must provide a conversion to the cartesian representation.
  * 
  * 
- * @version 1.0
+ * @version 2.0
  * 
- * @date 15.11.2015
+ * @date 20.11.2015
  */
 
 public abstract class AbstractCoordinate extends DataObject implements Coordinate{
@@ -30,18 +30,20 @@ public abstract class AbstractCoordinate extends DataObject implements Coordinat
 	 * @return The distance
 	 */
 	public double getDistance(Coordinate coordinate) {
-		if(!checkCoordinateValidity(coordinate)) {
-			throw new IllegalArgumentException("Argument coordinate object is null");
-		}
+		
+		assertCoordinateValidity(coordinate);
 		
 		CartesianCoordinate thisCoordinate = this.getCartesianCoordinate();
-		CartesianCoordinate otherCoordinate = ((AbstractCoordinate)coordinate).getCartesianCoordinate();
+		CartesianCoordinate otherCoordinate = ((Coordinate)coordinate).getCartesianCoordinate();
 		
 		// now compute distance of two cartesian coordinates (pythagoras)
 		double powerX = Math.pow(thisCoordinate.getXDistance(otherCoordinate), 2.0);
 		double powerY = Math.pow(thisCoordinate.getYDistance(otherCoordinate), 2.0);
 		double powerZ = Math.pow(thisCoordinate.getZDistance(otherCoordinate), 2.0);
 		double distance = Math.sqrt(powerX + powerY + powerZ);
+		
+		assert distance!=Double.NaN;
+		
 		return distance;
 		
 	}
@@ -56,20 +58,21 @@ public abstract class AbstractCoordinate extends DataObject implements Coordinat
 	 * @return True if the two coordinates are equal, false if not
 	 */
 	public boolean isEqual(Coordinate coordinate) {
-		if(!checkCoordinateValidity(coordinate)) {
-			throw new IllegalArgumentException("Argument coordinate object is null");
-		}
 		
+		assertCoordinateValidity(coordinate);
+			
 		if(this == coordinate) {
 			return true;
 		}
 		
-		CartesianCoordinate thisCoordinate = this.getCartesianCoordinate();
-		CartesianCoordinate otherCoordinate = ((AbstractCoordinate)coordinate).getCartesianCoordinate();
+		double epsilon = 0.01;
 		
-		if(thisCoordinate.getCoordinateX() == otherCoordinate.getCoordinateX()
-				&& thisCoordinate.getCoordinateY() == otherCoordinate.getCoordinateY()
-				&& thisCoordinate.getCoordinateZ() == otherCoordinate.getCoordinateZ()) {			
+		CartesianCoordinate thisCoordinate = this.getCartesianCoordinate();
+		CartesianCoordinate otherCoordinate = ((Coordinate)coordinate).getCartesianCoordinate();
+		
+		if( (Math.abs(thisCoordinate.getCoordinateX() - otherCoordinate.getCoordinateX()) < epsilon)
+				&& (Math.abs(thisCoordinate.getCoordinateY() - otherCoordinate.getCoordinateY()) < epsilon)
+				&& (Math.abs(thisCoordinate.getCoordinateZ() - otherCoordinate.getCoordinateZ()) < epsilon) ) {			
 			return true;
 		}
 		
@@ -85,11 +88,10 @@ public abstract class AbstractCoordinate extends DataObject implements Coordinat
 	 * @param coordinate The coordinate object to check
 	 * @return	true if the object is valid, false if not
 	 */
-	protected boolean checkCoordinateValidity(Coordinate coordinate){
+	protected void assertCoordinateValidity(Coordinate coordinate){
 		if(coordinate == null){
-			return false;
+			throw new IllegalArgumentException("Argument coordinate object is null");
 		}
-		return true;
 	}
 	
 	/**
@@ -100,5 +102,37 @@ public abstract class AbstractCoordinate extends DataObject implements Coordinat
 	 * @return The coordinate as CartesianCoordinate object
 	 */
 	 public abstract CartesianCoordinate getCartesianCoordinate();
+	 
+	 /**
+	 * Gets the x value of the coordinate. Must be overriden in every concrete subclass.
+	 * 
+	 * @methodtype get
+	 * 
+	 * @return The x value of the coordinate
+	 */
+	 public abstract double getCoordinateX();
+	 
+	 /**
+	 * Gets the y value of the coordinate. Must be overriden in every concrete subclass.
+	 * 
+	 * @methodtype get
+	 * 
+	 * @return The y value of the coordinate
+	 */
+	 public abstract double getCoordinateY();
+	 
+	 /**
+	 * Gets the z value of the coordinate. Must be overriden in every concrete subclass.
+	 * 
+	 * @methodtype get
+	 * 
+	 * @return The z value of the coordinate
+	 */
+	 public abstract double getCoordinateZ();
+	 
+	 /**
+	  * The class invariant assertion method. Checks whether the coordinate is equal with itself.
+	  * */
+	 
 
 }

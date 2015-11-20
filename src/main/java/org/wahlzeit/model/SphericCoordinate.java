@@ -6,9 +6,9 @@ package org.wahlzeit.model;
  * 
  * Represents a location based on spheric coordinate.
  * 
- * @version 2.0
+ * @version 3.0
  * 
- * @date 15.11.2015
+ * @date 20.11.2015
  */
 public class SphericCoordinate extends AbstractCoordinate  {
 	
@@ -71,6 +71,8 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 * @return The latitude value
 	 */
 	public double getLatitude() {
+		
+		assertIsADouble(latitude);
 		return latitude;
 	}
 	
@@ -83,9 +85,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 * @param latitude The latitude value
 	 */
 	public void setLatitude(double latitude) {
-		if(!checkLatitudeValidity(latitude)) {
-			throw new IllegalArgumentException("Latitude value must be between -90 and 90.");
-		}
+		assertLatitudeValidity(latitude);
 		this.latitude = latitude;
 	}
 	
@@ -98,6 +98,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 * @return The longitude value
 	 */
 	public double getLongitude() {
+		assertIsADouble(longitude);
 		return longitude;
 	}
 	
@@ -110,9 +111,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 * @param longitude The longitude value
 	 */
 	public void setLongitude(double longitude) {
-		if(!checkLongitudeValidity(longitude)) {
-			throw new IllegalArgumentException("Longitude value must be between -180 and 180.");
-		}
+		assertLongitudeValidity(longitude);	
 		this.longitude = longitude;
 	}
 	
@@ -125,6 +124,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 * @return The radius value
 	 */
 	public double getRadius() {
+		assertIsADouble(radius);
 		return radius;
 	}
 	
@@ -137,9 +137,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 * @param radius The radius value
 	 */
 	public void setRadius(double radius) {
-		if(!checkRadiusValidity(radius)) {
-			throw new IllegalArgumentException("Radius must not be smaller than 0");
-		}
+		assertRadiusValidity(radius);
 		this.radius = radius;
 	}
 	
@@ -154,10 +152,11 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 * @return	The distance of latitudes
 	 */
 	public double getLatitudeDistance(SphericCoordinate coordinate){
-		if(!checkCoordinateValidity(coordinate)){
-			throw new IllegalArgumentException("Argument coordinate object is null");
-		}
-		return Math.abs(this.getLatitude() - coordinate.getLatitude());
+		
+		assertCoordinateValidity(coordinate);
+		double distance = Math.abs(this.getLatitude() - coordinate.getLatitude());
+		assertIsADouble(distance);
+		return distance;
 	}
 	
 	/**
@@ -169,40 +168,38 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 * @return	The distance of lontitudes
 	 */
 	public double getLongitudeDistance(SphericCoordinate coordinate){
-		if(!checkCoordinateValidity(coordinate)){
-			throw new IllegalArgumentException("Argument coordinate object is null");
-		}
-		return Math.abs(this.getLongitude() - coordinate.getLongitude());
+		
+		assertCoordinateValidity(coordinate);
+		double distance = Math.abs(this.getLongitude() - coordinate.getLongitude());
+		assertIsADouble(distance);
+		return distance;
 	}
 	
 	/**
-	 * Checks whether a latitude value is valid (between -90 and 90)
+	 * Checks whether a latitude value is valid (between -90 and 90), otherwise throws exception
 	 * 
 	 * @methodtype assertion
 	 * 
 	 * @param latitude The value to check
-	 * @return	true if the value is valid, false otherwise
 	 */
-	private boolean checkLatitudeValidity(double latitude){
-		if(latitude >= -90 && latitude <= 90){
-			return true;
+	private void assertLatitudeValidity(double latitude){
+		if( !(latitude >= -90 && latitude <= 90) ){
+			throw new IllegalArgumentException("Latitude value must be between -90 and 90.");
 		}
-		return false;
 	}
 	
 	/**
-	 * Checks whether a longitude value is valid (between -180 and 180)
+	 * Checks whether a longitude value is valid (between -180 and 180), otherwise throws exception
 	 * 
 	 * @methodtype assertion 
 	 * 
 	 * @param longitude The value to check
 	 * @return	true if the value is valid, false otherwise
 	 */
-	private boolean checkLongitudeValidity(double longitude){
-		if(longitude >= -180 && longitude <= 180){
-			return true;
+	private void assertLongitudeValidity(double longitude){
+		if( !(longitude >= -180 && longitude <= 180) ){
+			throw new IllegalArgumentException("Longitude value must be between -180 and 180.");
 		}
-		return false;
 	}
 	
 	/**
@@ -213,12 +210,26 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 * @param radius The value to check
 	 * @return	true if the value is valid, false otherwise
 	 */
-	private boolean checkRadiusValidity(double radius) {
-		if(radius > 0.0) {
-			return true;
+	private void assertRadiusValidity(double radius) {
+		if( !(radius > 0.0) ) {
+			throw new IllegalArgumentException("Radius must not be smaller than 0");
 		}
-		return false;
 	}
+	
+	/**
+	 * Checks whether a object is a double number object. If not, throws exception
+	 * 
+	 * @methodtype assertion
+	 * 
+	 * @param number The number to check
+	 * 
+	 */
+	private void assertIsADouble(double number){
+		if(Double.isNaN(number)){
+			throw new IllegalArgumentException("Some components are not numbers, but have to be.");
+		}
+	}
+
 	
 	/**
 	 * Gets the coordinate as a cartesian coordinate.
@@ -229,6 +240,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 */
 	@Override
 	public CartesianCoordinate getCartesianCoordinate() {
+		
 		double latitude = Math.toRadians(this.getLatitude());
 		double longitude = Math.toRadians(this.getLongitude());
 		double radius = this.getRadius();
@@ -237,7 +249,27 @@ public class SphericCoordinate extends AbstractCoordinate  {
 		double y = radius * Math.sin(longitude) * Math.sin(latitude);
 		double z = radius * Math.cos(latitude);
 
+		assertIsADouble(x);
+		assertIsADouble(y);
+		assertIsADouble(z);
+		
 		return new CartesianCoordinate(x, y, z);
 	}
 
+	@Override
+	public double getCoordinateX() {
+		return this.getCartesianCoordinate().getCoordinateX();
+	}
+
+	@Override
+	public double getCoordinateY() {
+		return this.getCartesianCoordinate().getCoordinateY();
+	}
+
+	@Override
+	public double getCoordinateZ() {
+		return this.getCartesianCoordinate().getCoordinateZ();
+	}
+	
+	
 }
