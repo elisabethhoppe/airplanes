@@ -76,5 +76,6 @@ public class CartesianCoordinateTest {
 	public void testEqualsWithSpheric() {
 		assertTrue(c6.isEqual(s1));
 	}
+
 	
 }

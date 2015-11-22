@@ -30,10 +30,16 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 * 
 	 */
 	public SphericCoordinate(){
+		
+		assertClassInvariants();
+		
 		this.setLatitude(0.0);
 		this.setLongitude(0.0);
 		// default radius value
 		this.setRadius(6371.0);
+		
+		assertClassInvariants();
+		
 	}
 	
 	/**
@@ -43,10 +49,16 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 * @param longitude The longitude value
 	 */
 	public SphericCoordinate(double latitude, double longitude) {
+		
+		assertClassInvariants();
+		
 		this.setLatitude(latitude);
 		this.setLongitude(longitude);
 		//default radius value
 		this.setRadius(6371.0);
+		
+		assertClassInvariants();
+		
 	}
 	
 	/**
@@ -57,9 +69,15 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 * @param radius The radius value
 	 */
 	public SphericCoordinate(double latitude, double longitude, double radius){
+		
+		assertClassInvariants();
+		
 		this.setLatitude(latitude);
 		this.setLongitude(longitude);
 		this.setRadius(radius);
+		
+		assertClassInvariants();
+		
 	}
 	
 	/**
@@ -72,7 +90,8 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 */
 	public double getLatitude() {
 		
-		assertIsADouble(latitude);
+		assertClassInvariants();
+		
 		return latitude;
 	}
 	
@@ -85,8 +104,13 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 * @param latitude The latitude value
 	 */
 	public void setLatitude(double latitude) {
+		
+		assertClassInvariants();
 		assertLatitudeValidity(latitude);
+		
 		this.latitude = latitude;
+	
+		assertClassInvariants();		
 	}
 	
 	/**
@@ -98,7 +122,9 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 * @return The longitude value
 	 */
 	public double getLongitude() {
-		assertIsADouble(longitude);
+		
+		assertClassInvariants();
+		
 		return longitude;
 	}
 	
@@ -111,8 +137,13 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 * @param longitude The longitude value
 	 */
 	public void setLongitude(double longitude) {
+		
+		assertClassInvariants();
 		assertLongitudeValidity(longitude);	
+		
 		this.longitude = longitude;
+
+		assertClassInvariants();
 	}
 	
 	/**
@@ -124,8 +155,10 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 * @return The radius value
 	 */
 	public double getRadius() {
-		assertIsADouble(radius);
+		
+		assertClassInvariants();
 		return radius;
+		
 	}
 	
 	/**
@@ -137,8 +170,13 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 * @param radius The radius value
 	 */
 	public void setRadius(double radius) {
+		
+		assertClassInvariants();
 		assertRadiusValidity(radius);
+		
 		this.radius = radius;
+	
+		assertClassInvariants();
 	}
 	
 	
@@ -153,9 +191,14 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 */
 	public double getLatitudeDistance(SphericCoordinate coordinate){
 		
+		assertClassInvariants();
 		assertCoordinateValidity(coordinate);
+		
 		double distance = Math.abs(this.getLatitude() - coordinate.getLatitude());
+		
 		assertIsADouble(distance);
+		assertClassInvariants();
+		
 		return distance;
 	}
 	
@@ -169,9 +212,14 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 */
 	public double getLongitudeDistance(SphericCoordinate coordinate){
 		
+		assertClassInvariants();
 		assertCoordinateValidity(coordinate);
+		
 		double distance = Math.abs(this.getLongitude() - coordinate.getLongitude());
+		
 		assertIsADouble(distance);
+		assertClassInvariants();
+		
 		return distance;
 	}
 	
@@ -217,19 +265,19 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	}
 	
 	/**
-	 * Checks whether a object is a double number object. If not, throws exception
-	 * 
-	 * @methodtype assertion
-	 * 
-	 * @param number The number to check
-	 * 
-	 */
-	private void assertIsADouble(double number){
-		if(Double.isNaN(number)){
-			throw new IllegalArgumentException("Some components are not numbers, but have to be.");
-		}
+     * The class invariant assertion method.
+     * Checks whether the fields of the class are valid doubles.
+     * 
+     * @methodtype class invariant assertion
+     * */
+	@Override
+	protected void assertClassInvariants() {
+		
+		assertIsADouble(this.latitude);
+		assertIsADouble(this.longitude);
+		assertIsADouble(this.radius);
+		
 	}
-
 	
 	/**
 	 * Gets the coordinate as a cartesian coordinate.
@@ -240,6 +288,8 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 */
 	@Override
 	public CartesianCoordinate getCartesianCoordinate() {
+		
+		assertClassInvariants();
 		
 		double latitude = Math.toRadians(this.getLatitude());
 		double longitude = Math.toRadians(this.getLongitude());
@@ -252,22 +302,32 @@ public class SphericCoordinate extends AbstractCoordinate  {
 		assertIsADouble(x);
 		assertIsADouble(y);
 		assertIsADouble(z);
-		
+		assertClassInvariants();
+	
 		return new CartesianCoordinate(x, y, z);
 	}
 
 	@Override
 	public double getCoordinateX() {
+		
+		assertClassInvariants();
+		
 		return this.getCartesianCoordinate().getCoordinateX();
 	}
 
 	@Override
 	public double getCoordinateY() {
+		
+		assertClassInvariants();
+		
 		return this.getCartesianCoordinate().getCoordinateY();
 	}
 
 	@Override
 	public double getCoordinateZ() {
+		
+		assertClassInvariants();
+		
 		return this.getCartesianCoordinate().getCoordinateZ();
 	}
 	

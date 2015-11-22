@@ -42,7 +42,7 @@ public abstract class AbstractCoordinate extends DataObject implements Coordinat
 		double powerZ = Math.pow(thisCoordinate.getZDistance(otherCoordinate), 2.0);
 		double distance = Math.sqrt(powerX + powerY + powerZ);
 		
-		assert distance!=Double.NaN;
+		assertIsADouble(distance);
 		
 		return distance;
 		
@@ -95,6 +95,28 @@ public abstract class AbstractCoordinate extends DataObject implements Coordinat
 	}
 	
 	/**
+	 * Checks whether a object is a double number object. If not, throws exception.
+	 * 
+	 * @methodtype assertion
+	 * 
+	 * @param number The number to check
+	 * 
+	 */
+	protected void assertIsADouble(double number){
+		if(Double.isNaN(number)){
+			throw new IllegalArgumentException("Some components are not numbers, but have to be.");
+		}
+	}
+	
+	/**
+	  * The class invariant assertion method. Must be overriden in every abstract subclass.
+	  * 
+	  * @methodtype class invariant assertion
+	  * */
+	 protected abstract void assertClassInvariants();
+	 
+	
+	/**
 	 * Gets the coordinate as a cartesian coordinate. Must be overriden in every concrete subclass.
 	 * 
 	 * @methodtype conversion
@@ -130,9 +152,6 @@ public abstract class AbstractCoordinate extends DataObject implements Coordinat
 	 */
 	 public abstract double getCoordinateZ();
 	 
-	 /**
-	  * The class invariant assertion method. Checks whether the coordinate is equal with itself.
-	  * */
 	 
 
 }

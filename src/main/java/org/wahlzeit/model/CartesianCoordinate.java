@@ -30,9 +30,14 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * 
 	 */
 	public CartesianCoordinate() {
+		
+		assertClassInvariants();
+		
 		this.setCoordinateX(0.0);
 		this.setCoordinateY(0.0);
 		this.setCoordinateZ(0.0);
+		
+		assertClassInvariants();
 	}
 	
 	/**
@@ -44,9 +49,13 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	public CartesianCoordinate(double x, double y, double z) {
 		
+		assertClassInvariants();
+		
 		this.setCoordinateX(x);
 		this.setCoordinateY(y);
 		this.setCoordinateZ(z);
+		
+		assertClassInvariants();
 		
 	}
 	
@@ -59,7 +68,9 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @return The x value
 	 */
 	public double getCoordinateX() {
-		assertIsADouble(coordinateX);
+		
+		assertClassInvariants();
+		
 		return coordinateX;
 	}
 	
@@ -73,9 +84,12 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	public void setCoordinateX(double coordinateX) {
 		
+		assertClassInvariants();	
 		assertIsADouble(coordinateX);
 		
 		this.coordinateX = coordinateX;
+		
+		assertClassInvariants();
 	}
 	
 	/**
@@ -88,7 +102,8 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	public double getCoordinateY() {
 		
-		assertIsADouble(coordinateY);
+		assertClassInvariants();
+		
 		return coordinateY;
 	}
 	
@@ -102,8 +117,12 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	public void setCoordinateY(double coordinateY) {
 		
+		assertClassInvariants();
 		assertIsADouble(coordinateY);
+		
 		this.coordinateY = coordinateY;
+		
+		assertClassInvariants();
 	}
 	
 	/**
@@ -116,7 +135,8 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	public double getCoordinateZ() {
 		
-		assertIsADouble(coordinateZ);
+		assertClassInvariants();
+		
 		return coordinateZ;
 	}
 	
@@ -130,8 +150,12 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	public void setCoordinateZ(double coordinateZ) {
 		
+		assertClassInvariants();
 		assertIsADouble(coordinateZ);
+		
 		this.coordinateZ = coordinateZ;
+		
+		assertClassInvariants();
 	}
 	
 	/**
@@ -144,10 +168,15 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @return The x distance value
 	 */
 	public double getXDistance(CartesianCoordinate coordinate){
+		
+		assertClassInvariants();
 		assertCoordinateValidity(coordinate);
 		
 		double distance = this.getCoordinateX()-coordinate.getCoordinateX();
+		
 		assertIsADouble(distance);
+		assertClassInvariants();
+		
 		return distance;
 	}
 	
@@ -162,10 +191,14 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	public double getYDistance(CartesianCoordinate coordinate){
 		
+		assertClassInvariants();
 		assertCoordinateValidity(coordinate);
 		
 		double distance = this.getCoordinateY()-coordinate.getCoordinateY();
+		
 		assertIsADouble(distance);
+		assertClassInvariants();
+		
 		return distance;
 	}
 	
@@ -180,10 +213,14 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	public double getZDistance(CartesianCoordinate coordinate){
 		
+		assertClassInvariants();
 		assertCoordinateValidity(coordinate);
 		
 		double distance = this.getCoordinateZ()-coordinate.getCoordinateZ();
+		
 		assertIsADouble(distance);
+		assertClassInvariants();
+		
 		return distance;
 	}
 	
@@ -196,21 +233,24 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	@Override
 	public CartesianCoordinate getCartesianCoordinate() {
+		
+		assertClassInvariants();
 		return this;
 	}
 	
 	/**
-	 * Checks whether a object is a double number object. If not, throws exception
-	 * 
-	 * @methodtype assertion
-	 * 
-	 * @param number The number to check
-	 * 
-	 */
-	private void assertIsADouble(double number){
-		if(Double.isNaN(number)){
-			throw new IllegalArgumentException("Some components are not numbers, but have to be.");
-		}
+     * The class invariant assertion method.
+     * Checks whether the fields of the class are valid doubles.
+     * 
+     * @methodtype class invariant assertion
+     * */
+	@Override
+	protected void assertClassInvariants() {
+		
+		assertIsADouble(this.coordinateX);
+		assertIsADouble(this.coordinateY);
+		assertIsADouble(this.coordinateZ);
+		
 	}
 
 }
