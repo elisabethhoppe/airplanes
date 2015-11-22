@@ -12,7 +12,7 @@ import org.junit.Before;
 public class LocationTest {
 	
 	private Location l1,l2;
-	private CoordinateOld c1;
+	private Coordinate c1;
 	
 	@Before
 	public void initializeTest(){

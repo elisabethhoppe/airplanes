@@ -235,6 +235,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	public CartesianCoordinate getCartesianCoordinate() {
 		
 		assertClassInvariants();
+		
 		return this;
 	}
 	

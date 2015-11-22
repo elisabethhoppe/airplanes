@@ -31,6 +31,7 @@ public abstract class AbstractCoordinate extends DataObject implements Coordinat
 	 */
 	public double getDistance(Coordinate coordinate) {
 		
+		assertClassInvariants();
 		assertCoordinateValidity(coordinate);
 		
 		CartesianCoordinate thisCoordinate = this.getCartesianCoordinate();
@@ -43,6 +44,7 @@ public abstract class AbstractCoordinate extends DataObject implements Coordinat
 		double distance = Math.sqrt(powerX + powerY + powerZ);
 		
 		assertIsADouble(distance);
+		assertClassInvariants();
 		
 		return distance;
 		
@@ -59,6 +61,7 @@ public abstract class AbstractCoordinate extends DataObject implements Coordinat
 	 */
 	public boolean isEqual(Coordinate coordinate) {
 		
+		assertClassInvariants();
 		assertCoordinateValidity(coordinate);
 			
 		if(this == coordinate) {
@@ -75,6 +78,8 @@ public abstract class AbstractCoordinate extends DataObject implements Coordinat
 				&& (Math.abs(thisCoordinate.getCoordinateZ() - otherCoordinate.getCoordinateZ()) < epsilon) ) {			
 			return true;
 		}
+		
+		assertClassInvariants();
 		
 		return false;
 		
