@@ -12,6 +12,13 @@ import org.wahlzeit.services.LogBuilder;
  * @date 1.11.2015
  *
  */
+
+@Pattern (
+	name = "Singleton",
+	participants = {
+			"AirplanePhotoFactory"
+	}
+)
 public class AirplanePhotoFactory extends PhotoFactory{
 	
 	private static final Logger log = Logger.getLogger(AirplanePhotoFactory.class.getName());

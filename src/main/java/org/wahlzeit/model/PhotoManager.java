@@ -43,6 +43,10 @@ import java.util.logging.Logger;
 /**
  * A photo manager provides access to and manages photos.
  */
+@Pattern(
+		name = "Facade", 
+		participants = { "PhotoManager", "Clients" }
+)
 public class PhotoManager extends ObjectManager {
 
 	/**

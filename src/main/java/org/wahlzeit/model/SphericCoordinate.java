@@ -31,7 +31,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 */
 	public SphericCoordinate(){
 		
-		assertClassInvariants();
+		//assertClassInvariants();
 		
 		this.setLatitude(0.0);
 		this.setLongitude(0.0);
@@ -50,7 +50,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 */
 	public SphericCoordinate(double latitude, double longitude) {
 		
-		assertClassInvariants();
+		//assertClassInvariants();
 		
 		this.setLatitude(latitude);
 		this.setLongitude(longitude);
@@ -70,7 +70,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 */
 	public SphericCoordinate(double latitude, double longitude, double radius){
 		
-		assertClassInvariants();
+		//assertClassInvariants();
 		
 		this.setLatitude(latitude);
 		this.setLongitude(longitude);
@@ -90,7 +90,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 */
 	public double getLatitude() {
 		
-		assertClassInvariants();
+		//assertClassInvariants();
 		
 		return latitude;
 	}
@@ -105,7 +105,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 */
 	public void setLatitude(double latitude) {
 		
-		assertClassInvariants();
+		//assertClassInvariants();
 		assertLatitudeValidity(latitude);
 		
 		this.latitude = latitude;
@@ -123,7 +123,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 */
 	public double getLongitude() {
 		
-		assertClassInvariants();
+		//assertClassInvariants();
 		
 		return longitude;
 	}
@@ -138,7 +138,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 */
 	public void setLongitude(double longitude) {
 		
-		assertClassInvariants();
+		//assertClassInvariants();
 		assertLongitudeValidity(longitude);	
 		
 		this.longitude = longitude;
@@ -156,7 +156,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 */
 	public double getRadius() {
 		
-		assertClassInvariants();
+		//assertClassInvariants();
 		return radius;
 		
 	}
@@ -171,7 +171,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 */
 	public void setRadius(double radius) {
 		
-		assertClassInvariants();
+		//assertClassInvariants();
 		assertRadiusValidity(radius);
 		
 		this.radius = radius;
@@ -191,13 +191,13 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 */
 	public double getLatitudeDistance(SphericCoordinate coordinate){
 		
-		assertClassInvariants();
+		//assertClassInvariants();
 		assertCoordinateValidity(coordinate);
 		
 		double distance = Math.abs(this.getLatitude() - coordinate.getLatitude());
 		
 		assertIsADouble(distance);
-		assertClassInvariants();
+		//assertClassInvariants();
 		
 		return distance;
 	}
@@ -212,13 +212,13 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 */
 	public double getLongitudeDistance(SphericCoordinate coordinate){
 		
-		assertClassInvariants();
+		//assertClassInvariants();
 		assertCoordinateValidity(coordinate);
 		
 		double distance = Math.abs(this.getLongitude() - coordinate.getLongitude());
 		
 		assertIsADouble(distance);
-		assertClassInvariants();
+		//assertClassInvariants();
 		
 		return distance;
 	}
@@ -289,7 +289,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	@Override
 	public CartesianCoordinate getCartesianCoordinate() {
 		
-		assertClassInvariants();
+		//assertClassInvariants();
 		
 		double latitude = Math.toRadians(this.getLatitude());
 		double longitude = Math.toRadians(this.getLongitude());
@@ -310,7 +310,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	@Override
 	public double getCoordinateX() {
 		
-		assertClassInvariants();
+		//assertClassInvariants();
 		
 		return this.getCartesianCoordinate().getCoordinateX();
 	}
@@ -318,7 +318,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	@Override
 	public double getCoordinateY() {
 		
-		assertClassInvariants();
+		//assertClassInvariants();
 		
 		return this.getCartesianCoordinate().getCoordinateY();
 	}
@@ -326,7 +326,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	@Override
 	public double getCoordinateZ() {
 		
-		assertClassInvariants();
+		//assertClassInvariants();
 		
 		return this.getCartesianCoordinate().getCoordinateZ();
 	}

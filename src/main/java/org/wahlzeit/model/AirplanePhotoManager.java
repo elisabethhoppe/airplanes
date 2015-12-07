@@ -8,6 +8,10 @@ package org.wahlzeit.model;
  * @date 1.11.2015
  *
  */
+@Pattern(
+		name = "Facade", 
+		participants = { "AirplanePhotoManager", "Clients" }
+)
 public class AirplanePhotoManager extends PhotoManager {
 	
 	/**

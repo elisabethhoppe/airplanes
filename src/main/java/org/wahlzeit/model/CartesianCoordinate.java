@@ -31,7 +31,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	public CartesianCoordinate() {
 		
-		assertClassInvariants();
+		//assertClassInvariants();
 		
 		this.setCoordinateX(0.0);
 		this.setCoordinateY(0.0);
@@ -49,7 +49,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	public CartesianCoordinate(double x, double y, double z) {
 		
-		assertClassInvariants();
+		//assertClassInvariants();
 		
 		this.setCoordinateX(x);
 		this.setCoordinateY(y);
@@ -69,7 +69,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	public double getCoordinateX() {
 		
-		assertClassInvariants();
+		//assertClassInvariants();
 		
 		return coordinateX;
 	}
@@ -84,7 +84,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	public void setCoordinateX(double coordinateX) {
 		
-		assertClassInvariants();	
+		//assertClassInvariants();	
 		assertIsADouble(coordinateX);
 		
 		this.coordinateX = coordinateX;
@@ -102,7 +102,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	public double getCoordinateY() {
 		
-		assertClassInvariants();
+		//assertClassInvariants();
 		
 		return coordinateY;
 	}
@@ -117,7 +117,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	public void setCoordinateY(double coordinateY) {
 		
-		assertClassInvariants();
+		//assertClassInvariants();
 		assertIsADouble(coordinateY);
 		
 		this.coordinateY = coordinateY;
@@ -135,7 +135,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	public double getCoordinateZ() {
 		
-		assertClassInvariants();
+		//assertClassInvariants();
 		
 		return coordinateZ;
 	}
@@ -150,7 +150,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	public void setCoordinateZ(double coordinateZ) {
 		
-		assertClassInvariants();
+		//assertClassInvariants();
 		assertIsADouble(coordinateZ);
 		
 		this.coordinateZ = coordinateZ;
@@ -169,13 +169,13 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	public double getXDistance(CartesianCoordinate coordinate){
 		
-		assertClassInvariants();
+		//assertClassInvariants();
 		assertCoordinateValidity(coordinate);
 		
 		double distance = this.getCoordinateX()-coordinate.getCoordinateX();
 		
 		assertIsADouble(distance);
-		assertClassInvariants();
+		//assertClassInvariants();
 		
 		return distance;
 	}
@@ -191,13 +191,13 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	public double getYDistance(CartesianCoordinate coordinate){
 		
-		assertClassInvariants();
+		//assertClassInvariants();
 		assertCoordinateValidity(coordinate);
 		
 		double distance = this.getCoordinateY()-coordinate.getCoordinateY();
 		
 		assertIsADouble(distance);
-		assertClassInvariants();
+		//assertClassInvariants();
 		
 		return distance;
 	}
@@ -213,13 +213,13 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	public double getZDistance(CartesianCoordinate coordinate){
 		
-		assertClassInvariants();
+		//assertClassInvariants();
 		assertCoordinateValidity(coordinate);
 		
 		double distance = this.getCoordinateZ()-coordinate.getCoordinateZ();
 		
 		assertIsADouble(distance);
-		assertClassInvariants();
+		//assertClassInvariants();
 		
 		return distance;
 	}
@@ -234,7 +234,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	@Override
 	public CartesianCoordinate getCartesianCoordinate() {
 		
-		assertClassInvariants();
+		//assertClassInvariants();
 		
 		return this;
 	}
