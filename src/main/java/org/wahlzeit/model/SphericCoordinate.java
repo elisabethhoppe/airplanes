@@ -132,8 +132,9 @@ public class SphericCoordinate extends AbstractCoordinate  {
 		
 		assertLatitudeValidity(latitude);
 		
-		// create a new object with modified content
-		SphericCoordinate result = new SphericCoordinate(latitude, this.getLongitude(), this.getRadius());
+		// create a new object with modified content or get an existing instance 
+		
+		SphericCoordinate result = SphericCoordinate.getInstance(latitude, this.getLongitude(), this.getRadius());
 		
 		assertClassInvariants();	
 		
@@ -168,8 +169,8 @@ public class SphericCoordinate extends AbstractCoordinate  {
 		
 		assertLongitudeValidity(longitude);	
 		
-		// create a new object with modified content
-		SphericCoordinate result = new SphericCoordinate(this.getLatitude(), longitude, this.getRadius());
+		// create a new object with modified content or get an existing instance 
+		SphericCoordinate result = SphericCoordinate.getInstance(this.getLatitude(), longitude, this.getRadius());
 			
 		assertClassInvariants();
 		
@@ -206,8 +207,8 @@ public class SphericCoordinate extends AbstractCoordinate  {
 		
 		assertRadiusValidity(radius);
 		
-		// create a new object with modified content
-		SphericCoordinate result = new SphericCoordinate(this.getLatitude(), this.getLongitude(), radius);
+		// create a new object with modified content or get an existing instance 
+		SphericCoordinate result = SphericCoordinate.getInstance(this.getLatitude(), this.getLongitude(), radius);
 				
 		assertClassInvariants();
 		

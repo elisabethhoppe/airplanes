@@ -117,8 +117,8 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		
 		assertIsADouble(coordinateX);
 		
-		// creates new object with the modified x value 
-		CartesianCoordinate result = new CartesianCoordinate(coordinateX, this.getCoordinateY(), this.getCoordinateZ());
+		// creates new object with the modified x value or get an existing instance 
+		CartesianCoordinate result = CartesianCoordinate.getInstance(coordinateX, this.getCoordinateY(), this.getCoordinateZ());
 		
 		assertClassInvariants();
 		
@@ -153,8 +153,8 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	
 		assertIsADouble(coordinateY);
 		
-		// creates new object with the modified y value 
-		CartesianCoordinate result = new CartesianCoordinate(this.getCoordinateX(), coordinateY, this.getCoordinateZ());
+		// creates new object with the modified y value or get an existing instance 
+		CartesianCoordinate result = CartesianCoordinate.getInstance(this.getCoordinateX(), coordinateY, this.getCoordinateZ());
 		
 		assertClassInvariants();
 		
@@ -189,8 +189,8 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		
 		assertIsADouble(coordinateZ);
 		
-		// creates new object with the modified z value 
-		CartesianCoordinate result = new CartesianCoordinate(this.getCoordinateX(), this.getCoordinateY(), coordinateZ);
+		// creates new object with the modified z value or get an existing instance 
+		CartesianCoordinate result = CartesianCoordinate.getInstance(this.getCoordinateX(), this.getCoordinateY(), coordinateZ);
 		
 		assertClassInvariants();
 		
