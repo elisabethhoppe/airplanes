@@ -1,14 +1,17 @@
 package org.wahlzeit.model;
 
+import static org.wahlzeit.model.AbstractCoordinate.Lock;
 
 /**
  * Spheric Coordinate class
  * 
  * Represents a location based on spheric coordinate.
  * 
- * @version 3.0
+ * @author Elisabeth Hoppe
  * 
- * @date 20.11.2015
+ * @version 4.0
+ * 
+ * @date 13.12.2015
  */
 public class SphericCoordinate extends AbstractCoordinate  {
 	
@@ -21,44 +24,64 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	/**
 	 * members
 	 */
-	private double latitude;
-	private double longitude;
-	private double radius;
+	final private double latitude;
+	final private double longitude;
+	final private double radius;
+	
 	
 	/**
-	 * @methodtype  default constructor
+	 * Method to get a default instance; returns a new object or an existing one
 	 * 
+	 * @return A new/existing spheric coordinate object with default values
 	 */
-	public SphericCoordinate(){
+	public static SphericCoordinate getInstance() {
 		
-		//assertClassInvariants();
-		
-		this.setLatitude(0.0);
-		this.setLongitude(0.0);
-		// default radius value
-		this.setRadius(6371.0);
-		
-		assertClassInvariants();
-		
+		// delegation
+		return getInstance(0.0,0.0,6371.0);
 	}
 	
 	/**
-	 * @methodtype   constructor
+	 * Method to get an instance with default radius value; returns a new object or an existing one
+	 * 
+	 * @return A new/existing spheric coordinate object with default values
+	 */
+	public static SphericCoordinate getInstance(double latitude, double longitude) {
+		
+		// delegation
+		return getInstance(latitude, longitude, 6371.0);
+	}
+	
+	/**
+	 * Method to get an instance of spheric coordinate; returns a new or an existing one. First checks whether an object with these values already exists.
 	 * 
 	 * @param latitude The latitude value
 	 * @param longitude The longitude value
+	 * @param radius The radius value
+	 * 
+	 * @return A new/existing object with desired values
 	 */
-	public SphericCoordinate(double latitude, double longitude) {
+	public static SphericCoordinate getInstance(double latitude, double longitude, double radius) {
 		
-		//assertClassInvariants();
 		
-		this.setLatitude(latitude);
-		this.setLongitude(longitude);
-		//default radius value
-		this.setRadius(6371.0);
+		double x = doConvertToX(latitude, longitude, radius);
+		double y = doConvertToY(latitude, longitude, radius);
+		double z = doConvertToZ(latitude, radius);
 		
-		assertClassInvariants();
+		Coordinate result = checkAlreadyExists(x,y,z);
 		
+		if(result == null || !(result instanceof SphericCoordinate) ) {
+			
+			// call constructor & create a new one, add it to the list
+			synchronized(Lock) {
+				result = checkAlreadyExists(x,y,z);
+				if (result == null || !(result instanceof SphericCoordinate) ) {
+					result = new SphericCoordinate(latitude, longitude, radius);
+					existingCoordinates.add((Coordinate)result);
+				}
+			}
+		}
+		
+		return (SphericCoordinate) result;
 	}
 	
 	/**
@@ -68,13 +91,15 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 * @param longitude The longitude value
 	 * @param radius The radius value
 	 */
-	public SphericCoordinate(double latitude, double longitude, double radius){
+	private SphericCoordinate(double latitude, double longitude, double radius){
 		
-		//assertClassInvariants();
+		assertLatitudeValidity(latitude);
+		assertLongitudeValidity(longitude);
+		assertRadiusValidity(radius);
 		
-		this.setLatitude(latitude);
-		this.setLongitude(longitude);
-		this.setRadius(radius);
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.radius = radius;
 		
 		assertClassInvariants();
 		
@@ -90,27 +115,30 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 */
 	public double getLatitude() {
 		
-		//assertClassInvariants();
-		
 		return latitude;
 	}
 	
 	/**
-	 * Sets the latitude value
+	 * Sets the latitude value; returns a new object with the modiefied latitude value ( or an already exisiting object )
 	 * 
 	 * @methodtype  set
 	 * @methodproperties composed
 	 * 
 	 * @param latitude The latitude value
+	 * 
+	 * @return A new/other object with the modified latitude value
 	 */
-	public void setLatitude(double latitude) {
+	public SphericCoordinate setLatitude(double latitude) {
 		
-		//assertClassInvariants();
 		assertLatitudeValidity(latitude);
 		
-		this.latitude = latitude;
-	
-		assertClassInvariants();		
+		// create a new object with modified content
+		SphericCoordinate result = new SphericCoordinate(latitude, this.getLongitude(), this.getRadius());
+		
+		assertClassInvariants();	
+		
+		// return the new object
+		return result;
 	}
 	
 	/**
@@ -123,27 +151,30 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 */
 	public double getLongitude() {
 		
-		//assertClassInvariants();
-		
 		return longitude;
 	}
 	
 	/**
-	 * Sets the longitude value
+	 * Sets the longitude value; returns a new object with the modiefied longitude value ( or an already exisiting object )
 	 * 
 	 * @methodtype  set
 	 * @methodproperties composed
 	 * 
 	 * @param longitude The longitude value
+	 * 
+	 * @return A new/other object with the modified longitude value
 	 */
-	public void setLongitude(double longitude) {
+	public SphericCoordinate setLongitude(double longitude) {
 		
-		//assertClassInvariants();
 		assertLongitudeValidity(longitude);	
 		
-		this.longitude = longitude;
-
+		// create a new object with modified content
+		SphericCoordinate result = new SphericCoordinate(this.getLatitude(), longitude, this.getRadius());
+			
 		assertClassInvariants();
+		
+		// return the new object
+		return result;
 	}
 	
 	/**
@@ -162,21 +193,26 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	}
 	
 	/**
-	 * Sets the radius value
+	 * Sets the radius value; returns a new object with the modiefied radius value ( or an already exisiting object )
 	 * 
 	 * @methodtype  set
 	 * @methodproperties composed
 	 * 
 	 * @param radius The radius value
+	 * 
+	 * @return A new/other object with the modified longitude value
 	 */
-	public void setRadius(double radius) {
+	public SphericCoordinate setRadius(double radius) {
 		
-		//assertClassInvariants();
 		assertRadiusValidity(radius);
 		
-		this.radius = radius;
-	
+		// create a new object with modified content
+		SphericCoordinate result = new SphericCoordinate(this.getLatitude(), this.getLongitude(), radius);
+				
 		assertClassInvariants();
+		
+		// return the new object
+		return result;
 	}
 	
 	
@@ -191,13 +227,11 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 */
 	public double getLatitudeDistance(SphericCoordinate coordinate){
 		
-		//assertClassInvariants();
 		assertCoordinateValidity(coordinate);
 		
 		double distance = Math.abs(this.getLatitude() - coordinate.getLatitude());
 		
 		assertIsADouble(distance);
-		//assertClassInvariants();
 		
 		return distance;
 	}
@@ -212,14 +246,12 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 */
 	public double getLongitudeDistance(SphericCoordinate coordinate){
 		
-		//assertClassInvariants();
 		assertCoordinateValidity(coordinate);
 		
 		double distance = Math.abs(this.getLongitude() - coordinate.getLongitude());
 		
 		assertIsADouble(distance);
-		//assertClassInvariants();
-		
+	
 		return distance;
 	}
 	
@@ -230,7 +262,7 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 * 
 	 * @param latitude The value to check
 	 */
-	private void assertLatitudeValidity(double latitude){
+	private static void assertLatitudeValidity(double latitude){
 		if( !(latitude >= -90 && latitude <= 90) ){
 			throw new IllegalArgumentException("Latitude value must be between -90 and 90.");
 		}
@@ -242,23 +274,21 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	 * @methodtype assertion 
 	 * 
 	 * @param longitude The value to check
-	 * @return	true if the value is valid, false otherwise
 	 */
-	private void assertLongitudeValidity(double longitude){
+	private static void assertLongitudeValidity(double longitude){
 		if( !(longitude >= -180 && longitude <= 180) ){
 			throw new IllegalArgumentException("Longitude value must be between -180 and 180.");
 		}
 	}
 	
 	/**
-	 * Checks whether a radius value is valid (greater than 0)
+	 * Checks whether a radius value is valid (greater than 0), otherwise throws exception
 	 * 
 	 * @methodtype assertion 
 	 * 
 	 * @param radius The value to check
-	 * @return	true if the value is valid, false otherwise
 	 */
-	private void assertRadiusValidity(double radius) {
+	private static void assertRadiusValidity(double radius) {
 		if( !(radius > 0.0) ) {
 			throw new IllegalArgumentException("Radius must not be smaller than 0");
 		}
@@ -289,46 +319,92 @@ public class SphericCoordinate extends AbstractCoordinate  {
 	@Override
 	public CartesianCoordinate getCartesianCoordinate() {
 		
-		//assertClassInvariants();
 		
-		double latitude = Math.toRadians(this.getLatitude());
-		double longitude = Math.toRadians(this.getLongitude());
-		double radius = this.getRadius();
-
-		double x = radius * Math.cos(longitude) * Math.sin(latitude);
-		double y = radius * Math.sin(longitude) * Math.sin(latitude);
-		double z = radius * Math.cos(latitude);
+		double x = doConvertToX(this.getLatitude(), this.getLongitude(), this.getRadius());
+		double y = doConvertToY(this.getLatitude(), this.getLongitude(), this.getRadius());
+		double z = doConvertToZ(this.getLatitude(), this.getRadius());
 
 		assertIsADouble(x);
 		assertIsADouble(y);
 		assertIsADouble(z);
 		assertClassInvariants();
-	
-		return new CartesianCoordinate(x, y, z);
+		
+		return CartesianCoordinate.getInstance(x, y, z);
 	}
+	
+	/**
+	 * Computes the x value from latitude, longitude and radius values.
+	 * 
+	 * @methodtype primitive helper 
+	 * 
+	 * @param latitude The latitude value
+	 * @param longitude The longitude value
+	 * @param radius The radius value
+	 * 
+	 * @return The converted value
+	 */
+	 private static double doConvertToX(double latitude, double longitude, double radius) {
+		 
+		double radLatitude = Math.toRadians(latitude);
+		double radLongitude = Math.toRadians(longitude);
+		
+		double x = radius * Math.cos(radLongitude) * Math.sin(radLatitude);
+		
+		return x;
+	 }
+	 
+	 /**
+	 * Computes the y value from latitude, longitude and radius values.
+	 * 
+	 * @methodtype primitive helper 
+	 * 
+	 * @param latitude The latitude value
+	 * @param longitude The longitude value
+	 * @param radius The radius value
+	 * 
+	 * @return The converted value
+	 */
+	 private static double doConvertToY(double latitude, double longitude, double radius) {
+		 
+		double radLatitude = Math.toRadians(latitude);
+		double radLongitude = Math.toRadians(longitude);
+		
+		double y = radius * Math.sin(radLongitude) * Math.sin(radLatitude);
+		
+		return y;
+	 }
+	 
+	 /**
+	 * Computes the z value from latitude and radius values.
+	 * 
+	 * @methodtype primitive helper 
+	 * 
+	 * @param latitude The latitude value
+	 * @param radius The radius value
+	 * 
+	 * @return The converted value
+	 */
+	 private static double doConvertToZ(double latitude, double radius) {
+		 
+		double radLatitude = Math.toRadians(latitude);
+		double z = radius * Math.cos(radLatitude);
+		
+		return z;
+	 }
 
 	@Override
 	public double getCoordinateX() {
-		
-		//assertClassInvariants();
-		
-		return this.getCartesianCoordinate().getCoordinateX();
+		return doConvertToX(this.getLatitude(), this.getLongitude(), this.getRadius());
 	}
 
 	@Override
 	public double getCoordinateY() {
-		
-		//assertClassInvariants();
-		
-		return this.getCartesianCoordinate().getCoordinateY();
+		return doConvertToY(this.getLatitude(), this.getLongitude(), this.getRadius());
 	}
 
 	@Override
 	public double getCoordinateZ() {
-		
-		//assertClassInvariants();
-		
-		return this.getCartesianCoordinate().getCoordinateZ();
+		return doConvertToZ(this.getLatitude(), this.getRadius());
 	}
 	
 	

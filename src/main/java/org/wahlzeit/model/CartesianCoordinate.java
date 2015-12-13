@@ -7,9 +7,11 @@ package org.wahlzeit.model;
  * 
  * Represents a location based on cartesian coordinates
  * 
- * @version 3.0
+ * @author Elisabeth Hoppe
  * 
- * @date 20.11.2015
+ * @version 4.0
+ * 
+ * @date 13.12.2015
  */
 public class CartesianCoordinate extends AbstractCoordinate {
 	
@@ -21,24 +23,51 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	/**
 	 * members
 	 * */
-	private double coordinateX;
-	private double coordinateY;
-	private double coordinateZ;
+	final private double coordinateX;
+	final private double coordinateY;
+	final private double coordinateZ;
+	
+	
 	
 	/**
-	 * @methodtype  default constructor
+	 * Method to get a default instance; returns a new object or an existing one
 	 * 
+	 * @return A new/existing cartesian coordinate object with default values
 	 */
-	public CartesianCoordinate() {
+	public static CartesianCoordinate getInstance() {
 		
-		//assertClassInvariants();
-		
-		this.setCoordinateX(0.0);
-		this.setCoordinateY(0.0);
-		this.setCoordinateZ(0.0);
-		
-		assertClassInvariants();
+		// delegation
+		return getInstance(0.0,0.0,0.0);
 	}
+	
+	/**
+	 * Method to get an instance of cartesian coordinate; returns a new or an existing one. First checks whether an object with these values already exists.
+	 * 
+	 * @param x The x value
+	 * @param y The y value
+	 * @param z The z value
+	 * 
+	 * @return A new/existing object with desired values
+	 */
+	public static CartesianCoordinate getInstance(double x, double y, double z) {
+		
+		Coordinate result = checkAlreadyExists(x,y,z);
+		
+		if(result == null || !(result instanceof CartesianCoordinate) ) {
+			
+			// call constructor & create a new one, add it to the list
+			synchronized(Lock) {
+				result = checkAlreadyExists(x,y,z);
+				if (result == null || !(result instanceof CartesianCoordinate) ) {
+					result = new CartesianCoordinate(x,y,z);
+					existingCoordinates.add((Coordinate)result);
+				}
+			}
+		}
+		
+		return (CartesianCoordinate) result;
+	}
+	
 	
 	/**
 	 * @methodtype   constructor
@@ -47,13 +76,15 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @param y The y value
 	 * @param z The z value
 	 */
-	public CartesianCoordinate(double x, double y, double z) {
+	private CartesianCoordinate(double x, double y, double z) {
 		
-		//assertClassInvariants();
+		assertIsADouble(x);
+		assertIsADouble(y);
+		assertIsADouble(z);
 		
-		this.setCoordinateX(x);
-		this.setCoordinateY(y);
-		this.setCoordinateZ(z);
+		coordinateX = x;
+		coordinateY = y;
+		coordinateZ = z;
 		
 		assertClassInvariants();
 		
@@ -69,27 +100,30 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	public double getCoordinateX() {
 		
-		//assertClassInvariants();
-		
 		return coordinateX;
 	}
 	
 	/**
-	 * Sets the x value
+	 * Sets the x value; returns a new object with the modiefied x value ( or an already exisiting object )
 	 * 
 	 * @methodtype  set
 	 * @methodproperties primitive 
 	 * 
 	 * @param coordinateX The x value
+	 * 
+	 * @return A new/other object with the modified x value
 	 */
-	public void setCoordinateX(double coordinateX) {
+	public CartesianCoordinate setCoordinateX(double coordinateX) {
 		
-		//assertClassInvariants();	
 		assertIsADouble(coordinateX);
 		
-		this.coordinateX = coordinateX;
+		// creates new object with the modified x value 
+		CartesianCoordinate result = new CartesianCoordinate(coordinateX, this.getCoordinateY(), this.getCoordinateZ());
 		
 		assertClassInvariants();
+		
+		// return the new object
+		return result;
 	}
 	
 	/**
@@ -101,28 +135,31 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @return The y value
 	 */
 	public double getCoordinateY() {
-		
-		//assertClassInvariants();
-		
+
 		return coordinateY;
 	}
 	
 	/**
-	 * Sets the y value
+	 * Sets the y value; returns a new object with the modiefied y value ( or an already exisiting object )
 	 * 
 	 * @methodtype  set
 	 * @methodproperties primitive  
 	 *
 	 * @param coordinateY The y value
+	 * 
+	 * @return A new/other object with the modified y value
 	 */
-	public void setCoordinateY(double coordinateY) {
-		
-		//assertClassInvariants();
+	public CartesianCoordinate setCoordinateY(double coordinateY) {
+	
 		assertIsADouble(coordinateY);
 		
-		this.coordinateY = coordinateY;
+		// creates new object with the modified y value 
+		CartesianCoordinate result = new CartesianCoordinate(this.getCoordinateX(), coordinateY, this.getCoordinateZ());
 		
 		assertClassInvariants();
+		
+		// return the new object
+		return result;
 	}
 	
 	/**
@@ -135,27 +172,30 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	public double getCoordinateZ() {
 		
-		//assertClassInvariants();
-		
 		return coordinateZ;
 	}
 	
 	/**
-	 * Sets the z value
+	 * Sets the z value; returns a new object with the modiefied z value ( or an already exisiting object )
 	 * 
 	 * @methodtype  set
 	 * @methodproperties primitive  
 	 *
 	 * @param coordinateZ The z value
+	 * 
+	 * @return A new/other object with the modified z value
 	 */
-	public void setCoordinateZ(double coordinateZ) {
+	public CartesianCoordinate setCoordinateZ(double coordinateZ) {
 		
-		//assertClassInvariants();
 		assertIsADouble(coordinateZ);
 		
-		this.coordinateZ = coordinateZ;
+		// creates new object with the modified z value 
+		CartesianCoordinate result = new CartesianCoordinate(this.getCoordinateX(), this.getCoordinateY(), coordinateZ);
 		
 		assertClassInvariants();
+		
+		// return the new object
+		return result;	
 	}
 	
 	/**
@@ -169,13 +209,11 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	public double getXDistance(CartesianCoordinate coordinate){
 		
-		//assertClassInvariants();
 		assertCoordinateValidity(coordinate);
 		
 		double distance = this.getCoordinateX()-coordinate.getCoordinateX();
 		
 		assertIsADouble(distance);
-		//assertClassInvariants();
 		
 		return distance;
 	}
@@ -191,13 +229,11 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	public double getYDistance(CartesianCoordinate coordinate){
 		
-		//assertClassInvariants();
 		assertCoordinateValidity(coordinate);
 		
 		double distance = this.getCoordinateY()-coordinate.getCoordinateY();
 		
 		assertIsADouble(distance);
-		//assertClassInvariants();
 		
 		return distance;
 	}
@@ -213,13 +249,11 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	public double getZDistance(CartesianCoordinate coordinate){
 		
-		//assertClassInvariants();
 		assertCoordinateValidity(coordinate);
 		
 		double distance = this.getCoordinateZ()-coordinate.getCoordinateZ();
 		
 		assertIsADouble(distance);
-		//assertClassInvariants();
 		
 		return distance;
 	}
@@ -233,8 +267,6 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	@Override
 	public CartesianCoordinate getCartesianCoordinate() {
-		
-		//assertClassInvariants();
 		
 		return this;
 	}

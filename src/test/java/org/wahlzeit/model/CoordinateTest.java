@@ -20,19 +20,19 @@ public class CoordinateTest {
 	
 	@Before
 	public void setUp(){
-		c1 = new CartesianCoordinate();
-		c2 = new CartesianCoordinate(45,60,50);
-		c3 = new CartesianCoordinate(20.5,20.4,20.3);
-		c5 = new CartesianCoordinate(45,60,50);
-		c6 = new CartesianCoordinate(0, 0, 6371);
-		sp1 = new SphericCoordinate(0,50, 6371);
+		c1 = CartesianCoordinate.getInstance();
+		c2 = CartesianCoordinate.getInstance(45,60,50);
+		c3 = CartesianCoordinate.getInstance(20.5,20.4,20.3);
+		c5 = CartesianCoordinate.getInstance(45,60,50);
+		c6 = CartesianCoordinate.getInstance(0, 0, 6371);
+		sp1 = SphericCoordinate.getInstance(0,50, 6371);
 		
-		s1 = new SphericCoordinate();
-		s2 = new SphericCoordinate(20.0, 40.5);
-		s3 = new SphericCoordinate(12.6, -120.0);
-		s11 = new SphericCoordinate(20.0, 40.5);
-		s12 = new SphericCoordinate(0.0, 0.0, 6371.0);
-		other1 = new CartesianCoordinate(0.0, 0.0, 6371.0);
+		s1 = SphericCoordinate.getInstance();
+		s2 = SphericCoordinate.getInstance(20.0, 40.5);
+		s3 = SphericCoordinate.getInstance(12.6, -120.0);
+		s11 = SphericCoordinate.getInstance(20.0, 40.5);
+		s12 = SphericCoordinate.getInstance(0.0, 0.0, 6371.0);
+		other1 = CartesianCoordinate.getInstance(0.0, 0.0, 6371.0);
 		
 	}
 	
@@ -52,32 +52,32 @@ public class CoordinateTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testLowLatitudeBoundaryShouldThrowException(){
-		s5 = new SphericCoordinate(-91,0);
+		s5 = SphericCoordinate.getInstance(-91,0);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testHighLatitudeBoundaryShouldThrowException(){
-		s6 = new SphericCoordinate(91, 0);
+		s6 = SphericCoordinate.getInstance(91, 0);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testLowLongitudeBoundaryShouldThrowException(){
-		s7 = new SphericCoordinate(0, -181);
+		s7 = SphericCoordinate.getInstance(0, -181);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testHighLongitudeBoundaryShouldThrowException(){
-		s8 = new SphericCoordinate(0, 181);
+		s8 = SphericCoordinate.getInstance(0, 181);
 	}
 	
 	@Test
 	public void testHighestBoundaries(){
-		s9 = new SphericCoordinate(90, 180);
+		s9 = SphericCoordinate.getInstance(90, 180);
 	}
 	
 	@Test
 	public void testLowestBoundaries(){
-		s10 = new SphericCoordinate(-90, -180);
+		s10 = SphericCoordinate.getInstance(-90, -180);
 	}
 
 	// distance computing
@@ -90,7 +90,7 @@ public class CoordinateTest {
 		assertEquals(55.23133169, c2.getDistance(c3), delta);
 		
 		assertEquals(7.4, s2.getLatitudeDistance(s3), delta);
-		assertEquals(160.5, s2.getLongitudeDistance(s3), delta);
+		assertEquals(160.5, (s2).getLongitudeDistance(s3), delta);
 		assertEquals(3527.3497047014444, s2.getDistance(s3), delta);
 	}
 	

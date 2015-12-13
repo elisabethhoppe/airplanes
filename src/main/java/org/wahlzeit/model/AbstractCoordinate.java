@@ -1,16 +1,18 @@
 package org.wahlzeit.model;
 
 import org.wahlzeit.services.DataObject;
+import java.util.ArrayList;
 
 /**
  * Abstract coordinate class for all coordinate representations. The cartesian representation is default. 
  * All coordinate objects are convert to the cartesian one and then all the functions are performed, e.g. distance 
  * computing. So all subclasses must provide a conversion to the cartesian representation.
  * 
+ * @author Elisabeth Hoppe
  * 
- * @version 2.0
+ * @version 3.0
  * 
- * @date 20.11.2015
+ * @date 13.12.2015
  */
 
 public abstract class AbstractCoordinate extends DataObject implements Coordinate{
@@ -19,6 +21,16 @@ public abstract class AbstractCoordinate extends DataObject implements Coordinat
 	 *  for persistence issues
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Array list for storing all exisiting coordinate value objects so far. 
+	 */
+	static protected ArrayList<Coordinate> existingCoordinates = new ArrayList<Coordinate>();
+	
+	/**
+	 * Lock for the static getInstance() methods in subclasses 
+	 */
+	protected static final Object Lock = new Object();
 	
 	/**
 	 * Computes the distance between two coordinates. The coordinates are both convert to cartesian 
@@ -31,7 +43,6 @@ public abstract class AbstractCoordinate extends DataObject implements Coordinat
 	 */
 	public double getDistance(Coordinate coordinate) {
 		
-		//assertClassInvariants();
 		assertCoordinateValidity(coordinate);
 		
 		CartesianCoordinate thisCoordinate = this.getCartesianCoordinate();
@@ -44,10 +55,59 @@ public abstract class AbstractCoordinate extends DataObject implements Coordinat
 		double distance = Math.sqrt(powerX + powerY + powerZ);
 		
 		assertIsADouble(distance);
-		//assertClassInvariants();
 		
 		return distance;
 		
+	}
+	
+	/**
+	 * Checks whether the new object which should be initialized already exists in the array list existingObjects. 
+	 * 
+	 * @methodtype  comparison
+	 *
+	 * @param newX The new x value
+	 * @param newY The new y value
+	 * @param newZ The new z value
+	 * 
+	 * @return The coordinate object, if it already exists, null otherwise
+	 */
+	protected static Coordinate checkAlreadyExists(double newX, double newY, double newZ){
+		
+		for(Coordinate currentCoordinate: existingCoordinates) {
+			
+			if( doTestDoubleEquality(currentCoordinate.getCoordinateX(), newX) 
+					&& doTestDoubleEquality(currentCoordinate.getCoordinateY(), newY)
+					&& doTestDoubleEquality(currentCoordinate.getCoordinateZ(), newZ) ) {
+				
+				// an object with the same values was found -> return it 
+				return (Coordinate)currentCoordinate;
+				
+			}
+		}
+		
+		// no object with the same values as the new one was found -> return null
+		return null;
+		
+	}
+	
+	/**
+	 * Helper method to compare two doubles with a delta value
+	 * 
+	 * @methodtype primitive helper
+	 * 
+	 * @param numberOne The first number
+	 * @param numberTwo	The second number
+	 * 
+	 * @return true if the two numbers are equal, false otherwise
+	 */
+	protected static boolean doTestDoubleEquality(double numberOne, double numberTwo) {
+		
+		double epsilon = 0.01;
+		
+		if(Math.abs(numberOne - numberTwo) < epsilon) {
+			return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -61,25 +121,20 @@ public abstract class AbstractCoordinate extends DataObject implements Coordinat
 	 */
 	public boolean isEqual(Coordinate coordinate) {
 		
-		//assertClassInvariants();
 		assertCoordinateValidity(coordinate);
 			
 		if(this == coordinate) {
 			return true;
 		}
-		
-		double epsilon = 0.01;
-		
+	
 		CartesianCoordinate thisCoordinate = this.getCartesianCoordinate();
 		CartesianCoordinate otherCoordinate = ((Coordinate)coordinate).getCartesianCoordinate();
 		
-		if( (Math.abs(thisCoordinate.getCoordinateX() - otherCoordinate.getCoordinateX()) < epsilon)
-				&& (Math.abs(thisCoordinate.getCoordinateY() - otherCoordinate.getCoordinateY()) < epsilon)
-				&& (Math.abs(thisCoordinate.getCoordinateZ() - otherCoordinate.getCoordinateZ()) < epsilon) ) {			
+		if(  doTestDoubleEquality(thisCoordinate.getCoordinateX(), otherCoordinate.getCoordinateX()) 
+				&& doTestDoubleEquality(thisCoordinate.getCoordinateY(), otherCoordinate.getCoordinateY()) 
+				&& doTestDoubleEquality(thisCoordinate.getCoordinateZ(), otherCoordinate.getCoordinateZ()) ) {			
 			return true;
 		}
-		
-		//assertClassInvariants();
 		
 		return false;
 		
@@ -114,7 +169,7 @@ public abstract class AbstractCoordinate extends DataObject implements Coordinat
 	}
 	
 	/**
-	  * The class invariant assertion method. Must be overriden in every abstract subclass.
+	  * The class invariant assertion method. Must be overridden in every concrete subclass.
 	  * 
 	  * @methodtype class invariant assertion
 	  * */
@@ -122,7 +177,7 @@ public abstract class AbstractCoordinate extends DataObject implements Coordinat
 	 
 	
 	/**
-	 * Gets the coordinate as a cartesian coordinate. Must be overriden in every concrete subclass.
+	 * Gets the coordinate as a cartesian coordinate. Must be overridden in every concrete subclass.
 	 * 
 	 * @methodtype conversion
 	 * 
@@ -131,7 +186,7 @@ public abstract class AbstractCoordinate extends DataObject implements Coordinat
 	 public abstract CartesianCoordinate getCartesianCoordinate();
 	 
 	 /**
-	 * Gets the x value of the coordinate. Must be overriden in every concrete subclass.
+	 * Gets the x value of the coordinate. Must be overridden in every concrete subclass.
 	 * 
 	 * @methodtype get
 	 * 
@@ -140,7 +195,7 @@ public abstract class AbstractCoordinate extends DataObject implements Coordinat
 	 public abstract double getCoordinateX();
 	 
 	 /**
-	 * Gets the y value of the coordinate. Must be overriden in every concrete subclass.
+	 * Gets the y value of the coordinate. Must be overridden in every concrete subclass.
 	 * 
 	 * @methodtype get
 	 * 
@@ -149,7 +204,7 @@ public abstract class AbstractCoordinate extends DataObject implements Coordinat
 	 public abstract double getCoordinateY();
 	 
 	 /**
-	 * Gets the z value of the coordinate. Must be overriden in every concrete subclass.
+	 * Gets the z value of the coordinate. Must be overridden in every concrete subclass.
 	 * 
 	 * @methodtype get
 	 * 
@@ -157,6 +212,7 @@ public abstract class AbstractCoordinate extends DataObject implements Coordinat
 	 */
 	 public abstract double getCoordinateZ();
 	 
+	
 	 
 
 }

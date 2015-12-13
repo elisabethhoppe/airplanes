@@ -33,7 +33,7 @@ public class Location extends DataObject{
 	public Location(){
 		this.setName("defaultLocation");
 		// cartesian is the default coordinate
-		Coordinate c = new CartesianCoordinate();
+		Coordinate c = CartesianCoordinate.getInstance();
 		this.setCoordinate(c);
 	}
 	
