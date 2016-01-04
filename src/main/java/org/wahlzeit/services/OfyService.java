@@ -4,7 +4,10 @@ import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
 import org.wahlzeit.model.Administrator;
+import org.wahlzeit.model.Airplane;
+import org.wahlzeit.model.AirplaneManager;
 import org.wahlzeit.model.AirplanePhoto;
+import org.wahlzeit.model.AirplaneType;
 import org.wahlzeit.model.Client;
 import org.wahlzeit.model.Globals;
 import org.wahlzeit.model.Guest;
@@ -28,6 +31,9 @@ public class OfyService {
 	static {
 		factory().register(Photo.class);
 		factory().register(AirplanePhoto.class);
+		factory().register(AirplaneType.class);
+		factory().register(Airplane.class);
+		factory().register(AirplaneManager.class);
 		factory().register(Globals.class);
 		factory().register(Tag.class);
 		factory().register(User.class);
