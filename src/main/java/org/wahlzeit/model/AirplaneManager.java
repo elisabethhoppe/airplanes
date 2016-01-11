@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import org.wahlzeit.services.DataObject;
 
+import com.googlecode.objectify.annotation.Entity;
+
 /**
  * A airplane manager class manages all the airplanes and airplane types.
  * 
@@ -14,12 +16,9 @@ import org.wahlzeit.services.DataObject;
  * @date 04.01.2016
  *
  */
-public class AirplaneManager extends DataObject{
+
+public class AirplaneManager{
 	
-	/**
-	 * for persistence issues
-	 */
-	private static final long serialVersionUID = 1L;
 	
 	/**
 	 * Maps for airplane instances and their types

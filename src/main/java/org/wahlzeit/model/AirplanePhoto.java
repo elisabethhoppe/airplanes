@@ -14,10 +14,15 @@ import com.googlecode.objectify.annotation.Entity;
 @Entity
 public class AirplanePhoto extends Photo{
 	
+	/**
+	 * for serial issues
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/***
 	 * Airplane manager
 	 */
-	private static AirplaneManager airplaneManager = null;
+	private static AirplaneManager airplaneManager;
 	
 	/**
 	 * Specific members of an airplane photo 
@@ -32,10 +37,6 @@ public class AirplanePhoto extends Photo{
 	public AirplanePhoto(){
 		// call the super constructor
 		super();
-		// set all values of this class to default
-		getManagerInstance().createAirplaneType("Deafult", AirplaneCategory.Default, (int) 0.0, LandCategory.Default);
-		this.airplane = getManagerInstance().createAirplane("Default");
-		
 	}
 	/**
 	 * @methodtype constructor
@@ -51,8 +52,7 @@ public class AirplanePhoto extends Photo{
 	 * 
 	 */
 	public AirplanePhoto(String typeName, AirplaneCategory category, int altitude, LandCategory landing){
-		super();
-		
+		super();		
 		getManagerInstance().createAirplaneType(typeName, category, altitude, landing);
 		this.airplane=getManagerInstance().createAirplane(typeName);
 	}
@@ -62,7 +62,7 @@ public class AirplanePhoto extends Photo{
 	 * 
 	 * Gets the airplane manager instance
 	 * */
-	private AirplaneManager getManagerInstance() {
+	private synchronized AirplaneManager getManagerInstance() {
 		
 		if(airplaneManager == null) {
 			airplaneManager = new AirplaneManager();
@@ -74,61 +74,7 @@ public class AirplanePhoto extends Photo{
 		}
 	}
 	
-	
-	 /**
-	 * @methodtype get
-	 * 
-	 * @return The category of the airplane
-	 */
-	public AirplaneCategory getCategory() {
-		return this.airplane.getType().getCategory();
-	}
-	
-	/**
-	 * @methodtype set
-	 * 
-	 * @param type The type to set
-	 */
-	public void setCategory(AirplaneCategory category) {
-		this.airplane.getType().setCategory(category);
-	}
-	
-	/**
-	 * @methodtype get
-	 * 
-	 * @return The flight altitude
-	 */
-	public int getFlightAltitude() {
-		return this.airplane.getType().getAltitude();
-	}
-	
-	/**
-	 * @methodtype set
-	 * 
-	 * @param flightAltitude the flight altitude to set 
-	 */
-	public void setFlightAltitude(int flightAltitude) {
-		this.airplane.getType().setAltitude(flightAltitude);
-	}
-	
-	/**
-	 * @methodtype get
-	 * 
-	 * @return The land type
-	 */
-	public LandCategory getLandType() {
-		return this.airplane.getType().getLanding();
-	}
-	
-	/**
-	 * @methodtype set
-	 * 
-	 * @param landType The land type to set
-	 */
-	public void setLandType(LandCategory landType) {
-		this.airplane.getType().setLanding(landType);
-	}
-	 
+
 	/**
 	 * @methodtype get
 	 * 
@@ -145,7 +91,6 @@ public class AirplanePhoto extends Photo{
 	 */
 	public void setAirplane(Airplane airplane) {
 		this.airplane = airplane;
-		incWriteCount();
 	}
 	
 	

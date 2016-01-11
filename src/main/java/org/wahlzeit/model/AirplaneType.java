@@ -6,6 +6,8 @@ import java.util.Set;
 
 import org.wahlzeit.services.DataObject;
 
+import com.googlecode.objectify.annotation.Entity;
+
 /**
  * A airplane type class represents an airplane type.
  * 
@@ -16,12 +18,9 @@ import org.wahlzeit.services.DataObject;
  * @date 04.01.2016
  *
  */
-public class AirplaneType extends DataObject{
+
+public class AirplaneType {
 	
-	/**
-	 * for persistence issues
-	 */
-	private static final long serialVersionUID = 1L;
 	
 	/**
 	 * attributes of the type

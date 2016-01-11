@@ -2,6 +2,8 @@ package org.wahlzeit.model;
 
 import org.wahlzeit.services.DataObject;
 
+import com.googlecode.objectify.annotation.Entity;
+
 /**
  * A airplane class represents the instance of an airplane type.
  * 
@@ -12,12 +14,8 @@ import org.wahlzeit.services.DataObject;
  * @date 04.01.2016
  *
  */
-public class Airplane extends DataObject{
-	
-	/**
-	 * for persistence issues
-	 */
-	private static final long serialVersionUID = 1L;
+
+public class Airplane {
 	
 	/**
 	 * The type of this instance

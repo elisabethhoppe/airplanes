@@ -30,10 +30,6 @@ public class OfyService {
 	 */
 	static {
 		factory().register(Photo.class);
-		factory().register(AirplanePhoto.class);
-		factory().register(AirplaneType.class);
-		factory().register(Airplane.class);
-		factory().register(AirplaneManager.class);
 		factory().register(Globals.class);
 		factory().register(Tag.class);
 		factory().register(User.class);
